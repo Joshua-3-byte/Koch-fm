@@ -1,3 +1,4 @@
+import cors from "cors";
 import dotenv from 'dotenv'
 dotenv.config()
 import path from 'path'
@@ -16,6 +17,16 @@ const app = express()
 app.use(express.json({ limit: '50mb' }))
 app.use(express.urlencoded({ limit: '50mb', extended: true }))
 app.use(cookieParser())
+
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173", // Local Vite frontend
+      "https://YOUR-FRONTEND.onrender.com", // Replace after frontend deployment
+    ],
+    credentials: true,
+  })
+);
 
 app.use('/api/auth/admin', authRoute)
 app.use('/api/news', newsRoute)
