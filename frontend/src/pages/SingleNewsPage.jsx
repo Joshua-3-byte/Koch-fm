@@ -96,7 +96,7 @@ const SingleNewsPage = () => {
 
           <div className='lg:w-1/4'>
             <div className='bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm p-4 sm:p-5'>
-              <h3 className='text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4'>📰 Also Read</h3>
+              <h3 className='text-base sm:text-lg font-bold underline text-gray-900 mb-3 sm:mb-4'> Also Read</h3>
               
               {otherStories.length === 0 ? (
                 <p className='text-gray-500 text-sm'>No other stories available</p>
@@ -128,13 +128,13 @@ const SingleNewsPage = () => {
                         <span className='text-red-600 hover:text-red-700 text-xs font-medium inline-flex items-center gap-1 mt-2'>
                           Read More →
                         </span>
-                      </div>
+                      </div> 
                     </Link>
                   ))}
                 </div>
-              )}
+              )} 
             </div>
-          </div>
+          </div> 
         </div>
 
         <div className='mt-8 text-center'>
