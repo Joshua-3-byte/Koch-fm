@@ -19,21 +19,19 @@ const storeRefreshToken = async(userId, refreshToken) => {
 }
 
 const setCookies = (res, accessToken, refreshToken) => {
-  const isProduction = process.env.NODE_ENV === 'production'
-  
   res.cookie('accessToken', accessToken, {
     httpOnly: true, 
-    secure: isProduction,
-    sameSite: isProduction ? 'none' : 'strict',
+    secure: true,
+    sameSite: 'none',
     maxAge: 15 * 60 * 1000,
-    domain: isProduction ? '.onrender.com' : undefined
+    domain: '.onrender.com'
   })
   res.cookie('refreshToken', refreshToken, {
     httpOnly: true, 
-    secure: isProduction,
-    sameSite: isProduction ? 'none' : 'strict',
+    secure: true,
+    sameSite: 'none',
     maxAge: 7 * 24 * 60 * 60 * 1000,
-    domain: isProduction ? '.onrender.com' : undefined
+    domain: '.onrender.com'
   })
 }
 
@@ -136,10 +134,10 @@ try {
 
   res.cookie('accessToken', accessToken,{
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+    secure: true,
+    sameSite: 'none',
     maxAge: 15 * 60 * 1000,
-    domain: process.env.NODE_ENV === 'production' ? '.onrender.com' : undefined
+    domain: '.onrender.com'
   })
 
   res.json({message: 'Token Refreshed'})
@@ -149,7 +147,6 @@ try {
 }
 }
 
-// ✅ FIXED - Send only necessary data
 export async function getProfile(req, res) {
   try {
     res.json({
