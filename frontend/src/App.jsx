@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom'
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import SignUpPage from './pages/SignUpPage'
 import LoginPage from './pages/LoginPage'
@@ -20,12 +20,18 @@ const AppContent = () => {
     checkAuth()
   }, [checkAuth])
 
-  const isAdminRoute = location.pathname === '/adminLandingPage' || location.pathname.startsWith('/admin')
+  const isAdminRoute =
+    location.pathname === '/adminLandingPage' ||
+    location.pathname.startsWith('/admin')
 
   if (checkingAuth) return <LoadingSpinner />
 
   return (
-    <div className={`min-h-screen relative overflow-hidden flex flex-col ${isAdminRoute ? 'bg-white text-gray-900' : 'bg-red-900 text-white'}`}>
+    <div
+      className={`min-h-screen relative overflow-hidden flex flex-col ${
+        isAdminRoute ? 'bg-white text-gray-900' : 'bg-red-900 text-white'
+      }`}
+    >
       {!isAdminRoute && (
         <div className='absolute inset-0 overflow-hidden'>
           <div className='absolute inset-0'>
@@ -34,7 +40,11 @@ const AppContent = () => {
         </div>
       )}
 
-      <div className={`relative z-50 flex flex-col min-h-screen ${!isAdminRoute ? 'pt-20' : ''}`}>
+      <div
+        className={`relative z-50 flex flex-col min-h-screen ${
+          !isAdminRoute ? 'pt-20' : ''
+        }`}
+      >
         {!isAdminRoute && <Navbar />}
 
         <main className='flex-grow'>
@@ -43,8 +53,18 @@ const AppContent = () => {
             <Route path='/news' element={<AllNewsPage />} />
             <Route path='/news/:id' element={<SingleNewsPage />} />
             <Route path='/signup' element={<SignUpPage />} />
-            <Route path='/login' element={user ? <Navigate to='/adminLandingPage' /> : <LoginPage />} />
-            <Route path='/adminLandingPage' element={user ? <AdminLandingPage /> : <Navigate to='/login' />} />
+            <Route
+              path='/login'
+              element={
+                user ? <Navigate to='/adminLandingPage' /> : <LoginPage />
+              }
+            />
+            <Route
+              path='/adminLandingPage'
+              element={
+                user ? <AdminLandingPage /> : <Navigate to='/login' />
+              }
+            />
           </Routes>
         </main>
 
@@ -57,11 +77,7 @@ const AppContent = () => {
 }
 
 function App() {
-  return (
-    <BrowserRouter>
-      <AppContent />
-    </BrowserRouter>
-  )
+  return <AppContent />
 }
 
 export default App
