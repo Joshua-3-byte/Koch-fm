@@ -22,7 +22,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://koch-fm-2.onrender.com",
+      "https://kochfm.netlify.app",
     ],
     credentials: true,
   })
