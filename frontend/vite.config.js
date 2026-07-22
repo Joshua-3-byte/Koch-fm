@@ -1,23 +1,15 @@
 import { defineConfig } from 'vite'
 import tailwindcss from '@tailwindcss/vite'
-import react from '@vitejs/plugin-react'  // ✅ Add this if you're using React
+import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [
-    react(),  // ✅ Add this if you're using React
+    react(),
     tailwindcss(),
   ],
-  // ✅ Ensure public files are copied to build
   publicDir: 'public',
   build: {
     outDir: 'dist',
-    // ✅ Make sure assets are handled properly
-    assetsDir: 'assets',
-    rollupOptions: {
-      output: {
-        manualChunks: undefined,
-      },
-    },
   },
   server: {
     proxy: {
@@ -26,7 +18,6 @@ export default defineConfig({
         changeOrigin: true,
       },
     },
-    // ✅ Handle SPA routing in development
     historyApiFallback: true,
   },
 })

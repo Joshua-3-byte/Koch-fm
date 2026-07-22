@@ -37,8 +37,6 @@ const PORT = process.env.PORT || 5001
 
 const __dirname = path.resolve()
 
-
-
 connectDB().then(() => {
 app.listen(PORT, () => {
   console.log(`Server Running on Port ${PORT}`)

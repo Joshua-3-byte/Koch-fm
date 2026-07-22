@@ -19,17 +19,21 @@ const storeRefreshToken = async(userId, refreshToken) => {
 }
 
 const setCookies = (res, accessToken, refreshToken) => {
+  const isProduction = process.env.NODE_ENV === 'production'
+  
   res.cookie('accessToken', accessToken, {
     httpOnly: true, 
-    secure:process.env.NODE_ENV ==='production',
-    sameSite: 'strict',
-    maxAge: 15 * 60 * 1000
+    secure: isProduction,
+    sameSite: isProduction ? 'none' : 'strict',
+    maxAge: 15 * 60 * 1000,
+    domain: isProduction ? '.onrender.com' : undefined
   })
   res.cookie('refreshToken', refreshToken, {
     httpOnly: true, 
-    secure:process.env.NODE_ENV ==='production',
-    sameSite: 'strict',
-    maxAge: 7 * 24 * 60 * 60 * 1000
+    secure: isProduction,
+    sameSite: isProduction ? 'none' : 'strict',
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    domain: isProduction ? '.onrender.com' : undefined
   })
 }
 
@@ -45,7 +49,6 @@ export async function adminSignup(req,res)  {
 
     const newUser = new User({email,password})
   
-    // Authenticate 
     const {accessToken, refreshToken} = generateToken(newUser._id)
   
     await storeRefreshToken(newUser._id, refreshToken)
@@ -53,14 +56,13 @@ export async function adminSignup(req,res)  {
     setCookies(res,accessToken,refreshToken)
 
     await newUser.save()
-    res.status(201).json({newUser:{
+    res.status(201).json({
       _id: newUser._id,
-      name: newUser.email,
+      email: newUser.email,
       role: newUser.role
-    }})
+    })
   } catch (error) {
     console.error('Error in Signup controller', error)
-    
     res.status(500).json({ error: error.message })
   }
 }
@@ -91,7 +93,7 @@ export async function adminLogin(req,res)  {
   }
 }
 
- // LOGOUT
+// LOGOUT
 export async function adminLogout(req, res) {
   try {
     const refreshToken = req.cookies.refreshToken;
@@ -135,8 +137,9 @@ try {
   res.cookie('accessToken', accessToken,{
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
-    sameSite: 'strict',
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
     maxAge: 15 * 60 * 1000,
+    domain: process.env.NODE_ENV === 'production' ? '.onrender.com' : undefined
   })
 
   res.json({message: 'Token Refreshed'})
@@ -146,13 +149,15 @@ try {
 }
 }
 
+// ✅ FIXED - Send only necessary data
 export async function getProfile(req, res) {
-	try {
-		res.json(req.user);
-	} catch (error) {
-		res.status(500).json({ message: "Server error", error: error.message });
-	}
+  try {
+    res.json({
+      _id: req.user._id,
+      email: req.user.email,
+      role: req.user.role
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
 }
-
-
-
