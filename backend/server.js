@@ -21,8 +21,8 @@ app.use(cookieParser())
 app.use(
   cors({
     origin: [
-      "http://localhost:5173", // Local Vite frontend
-      "https://YOUR-FRONTEND.onrender.com", // Replace after frontend deployment
+      "http://localhost:5173",
+      "https://koch-fm-2.onrender.com",
     ],
     credentials: true,
   })
