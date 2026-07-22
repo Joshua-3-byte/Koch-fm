@@ -156,7 +156,6 @@ const AdminShows = () => {
     return `${hour12}:${minutes} ${ampm}`
   }
 
-  // Format schedule display
   const formatSchedule = (show) => {
     if (show.scheduleType === 'range' && show.dayRangeStart && show.dayRangeEnd) {
       return `${formatDay(show.dayRangeStart)} - ${formatDay(show.dayRangeEnd)}`
@@ -166,206 +165,117 @@ const AdminShows = () => {
 
   return (
     <div className='space-y-6'>
-      {/* Header */}
-      <div className='flex items-center justify-between'>
-        <h2 className='text-3xl font-bold text-gray-900'> All Shows</h2>
+      <div className='flex flex-col sm:flex-row items-center justify-between gap-4'>
+        <h2 className='text-2xl sm:text-3xl font-bold text-gray-900'>All Shows</h2>
         <button
           onClick={() => {
             resetForm()
             setShowCreateForm(true)
           }}
-          className='px-6 py-3 bg-red-600 hover:bg-red-700 rounded-lg text-base font-medium text-white transition-colors duration-200 flex items-center gap-2'
+          className='w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 bg-red-600 hover:bg-red-700 rounded-lg text-sm sm:text-base font-medium text-white transition-colors duration-200 flex items-center justify-center gap-2'
         >
-          <Plus size={20} /> Create Show
+          <Plus size={18} /> Create Show
         </button>
       </div>
 
       <hr className='border-gray-300' />
 
-      {/* Create/Edit Form */}
       {showCreateForm && (
-        <form onSubmit={handleSubmit} className='bg-gray-100 rounded-xl p-6 border border-gray-300'>
-          <h3 className='text-xl font-semibold text-red-600 mb-4'>
+        <form onSubmit={handleSubmit} className='bg-gray-100 rounded-xl p-4 sm:p-6 border border-gray-300'>
+          <h3 className='text-lg sm:text-xl font-semibold text-red-600 mb-4'>
             {editingShow ? 'Edit Show' : 'Create New Show'}
           </h3>
           <div className='space-y-4'>
             <div>
               <label className='block text-sm text-gray-700 mb-1'>Show Title *</label>
-              <input
-                type='text'
-                name='title'
-                value={formData.title}
-                onChange={handleInputChange}
-                placeholder='Enter show title...'
-                className='w-full bg-white border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-red-500'
-              />
+              <input type='text' name='title' value={formData.title} onChange={handleInputChange} placeholder='Enter show title...' className='w-full bg-white border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-red-500' />
             </div>
 
             <div>
               <label className='block text-sm text-gray-700 mb-1'>Description *</label>
-              <textarea
-                name='description'
-                value={formData.description}
-                onChange={handleInputChange}
-                rows='3'
-                placeholder='Enter show description...'
-                className='w-full bg-white border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-red-500 resize-none'
-              />
+              <textarea name='description' value={formData.description} onChange={handleInputChange} rows='3' placeholder='Enter show description...' className='w-full bg-white border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-red-500 resize-none' />
             </div>
 
-            <div>
-              <label className='block text-sm text-gray-700 mb-1'>Host *</label>
-              <select
-                name='host'
-                value={formData.host}
-                onChange={handleInputChange}
-                className='w-full bg-white border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 focus:outline-none focus:border-red-500'
-              >
-                <option value=''>Select Host</option>
-                {presenters.map((presenter) => (
-                  <option key={presenter._id} value={presenter._id}>
-                    {presenter.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Schedule Type */}
-            <div>
-              <label className='block text-sm text-gray-700 mb-1'>Schedule Type *</label>
-              <div className='flex gap-4'>
-                <label className='flex items-center gap-2 text-sm text-gray-700 cursor-pointer'>
-                  <input
-                    type='radio'
-                    name='scheduleType'
-                    value='single'
-                    checked={formData.scheduleType === 'single'}
-                    onChange={handleInputChange}
-                    className='accent-red-600'
-                  />
-                  Single Day
-                </label>
-                <label className='flex items-center gap-2 text-sm text-gray-700 cursor-pointer'>
-                  <input
-                    type='radio'
-                    name='scheduleType'
-                    value='range'
-                    checked={formData.scheduleType === 'range'}
-                    onChange={handleInputChange}
-                    className='accent-red-600'
-                  />
-                  Day Range (e.g., Mon-Fri)
-                </label>
+            <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
+              <div>
+                <label className='block text-sm text-gray-700 mb-1'>Host *</label>
+                <select name='host' value={formData.host} onChange={handleInputChange} className='w-full bg-white border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 focus:outline-none focus:border-red-500'>
+                  <option value=''>Select Host</option>
+                  {presenters.map((presenter) => (
+                    <option key={presenter._id} value={presenter._id}>{presenter.name}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className='block text-sm text-gray-700 mb-1'>Schedule Type *</label>
+                <div className='flex gap-4 mt-2'>
+                  <label className='flex items-center gap-2 text-sm text-gray-700 cursor-pointer'>
+                    <input type='radio' name='scheduleType' value='single' checked={formData.scheduleType === 'single'} onChange={handleInputChange} className='accent-red-600' /> Single Day
+                  </label>
+                  <label className='flex items-center gap-2 text-sm text-gray-700 cursor-pointer'>
+                    <input type='radio' name='scheduleType' value='range' checked={formData.scheduleType === 'range'} onChange={handleInputChange} className='accent-red-600' /> Day Range
+                  </label>
+                </div>
               </div>
             </div>
 
-            {/* Single Day Selection */}
             {formData.scheduleType === 'single' && (
               <div>
                 <label className='block text-sm text-gray-700 mb-1'>Day of Week *</label>
-                <select
-                  name='dayOfWeek'
-                  value={formData.dayOfWeek}
-                  onChange={handleInputChange}
-                  className='w-full bg-white border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 focus:outline-none focus:border-red-500'
-                >
+                <select name='dayOfWeek' value={formData.dayOfWeek} onChange={handleInputChange} className='w-full bg-white border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 focus:outline-none focus:border-red-500'>
                   <option value=''>Select Day</option>
                   {daysOfWeek.map((day) => (
-                    <option key={day} value={day}>
-                      {formatDay(day)}
-                    </option>
+                    <option key={day} value={day}>{formatDay(day)}</option>
                   ))}
                 </select>
               </div>
             )}
 
-            {/* Day Range Selection */}
             {formData.scheduleType === 'range' && (
-              <div className='grid grid-cols-2 gap-4'>
+              <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
                 <div>
                   <label className='block text-sm text-gray-700 mb-1'>Start Day *</label>
-                  <select
-                    name='dayRangeStart'
-                    value={formData.dayRangeStart}
-                    onChange={handleInputChange}
-                    className='w-full bg-white border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 focus:outline-none focus:border-red-500'
-                  >
+                  <select name='dayRangeStart' value={formData.dayRangeStart} onChange={handleInputChange} className='w-full bg-white border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 focus:outline-none focus:border-red-500'>
                     <option value=''>Start Day</option>
                     {daysOfWeek.map((day) => (
-                      <option key={day} value={day}>
-                        {formatDay(day)}
-                      </option>
+                      <option key={day} value={day}>{formatDay(day)}</option>
                     ))}
                   </select>
                 </div>
                 <div>
                   <label className='block text-sm text-gray-700 mb-1'>End Day *</label>
-                  <select
-                    name='dayRangeEnd'
-                    value={formData.dayRangeEnd}
-                    onChange={handleInputChange}
-                    className='w-full bg-white border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 focus:outline-none focus:border-red-500'
-                  >
+                  <select name='dayRangeEnd' value={formData.dayRangeEnd} onChange={handleInputChange} className='w-full bg-white border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 focus:outline-none focus:border-red-500'>
                     <option value=''>End Day</option>
                     {daysOfWeek.map((day) => (
-                      <option key={day} value={day}>
-                        {formatDay(day)}
-                      </option>
+                      <option key={day} value={day}>{formatDay(day)}</option>
                     ))}
                   </select>
                 </div>
               </div>
             )}
 
-            <div className='grid grid-cols-2 gap-4'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
               <div>
                 <label className='block text-sm text-gray-700 mb-1'>Start Time *</label>
-                <input
-                  type='time'
-                  name='startTime'
-                  value={formData.startTime}
-                  onChange={handleInputChange}
-                  className='w-full bg-white border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 focus:outline-none focus:border-red-500'
-                />
+                <input type='time' name='startTime' value={formData.startTime} onChange={handleInputChange} className='w-full bg-white border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 focus:outline-none focus:border-red-500' />
               </div>
               <div>
                 <label className='block text-sm text-gray-700 mb-1'>End Time *</label>
-                <input
-                  type='time'
-                  name='endTime'
-                  value={formData.endTime}
-                  onChange={handleInputChange}
-                  className='w-full bg-white border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 focus:outline-none focus:border-red-500'
-                />
+                <input type='time' name='endTime' value={formData.endTime} onChange={handleInputChange} className='w-full bg-white border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 focus:outline-none focus:border-red-500' />
               </div>
             </div>
 
             <div>
               <label className='block text-sm text-gray-700 mb-1'>Show Image</label>
-              <input
-                type='file'
-                accept='image/*'
-                onChange={handleImageChange}
-                className='w-full bg-white border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-red-600 file:text-white hover:file:bg-red-700'
-              />
-              {formData.image && (
-                <p className='text-sm text-gray-500 mt-1'>Image uploaded</p>
-              )}
+              <input type='file' accept='image/*' onChange={handleImageChange} className='w-full bg-white border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-red-600 file:text-white hover:file:bg-red-700' />
+              {formData.image && <p className='text-sm text-gray-500 mt-1'>Image uploaded</p>}
             </div>
 
-            <div className='flex gap-3 pt-2'>
-              <button
-                type='submit'
-                disabled={loading}
-                className='px-6 py-2.5 bg-red-600 hover:bg-red-700 rounded-lg text-sm font-medium text-white transition-colors duration-200 disabled:opacity-50'
-              >
+            <div className='flex flex-col sm:flex-row gap-3 pt-2'>
+              <button type='submit' disabled={loading} className='px-6 py-2.5 bg-red-600 hover:bg-red-700 rounded-lg text-sm font-medium text-white transition-colors duration-200 disabled:opacity-50'>
                 {loading ? 'Saving...' : (editingShow ? 'Update Show' : 'Create Show')}
               </button>
-              <button
-                type='button'
-                onClick={resetForm}
-                className='px-6 py-2.5 bg-gray-200 hover:bg-gray-300 rounded-lg text-sm font-medium text-gray-700 transition-colors duration-200'
-              >
+              <button type='button' onClick={resetForm} className='px-6 py-2.5 bg-gray-200 hover:bg-gray-300 rounded-lg text-sm font-medium text-gray-700 transition-colors duration-200'>
                 Cancel
               </button>
             </div>
@@ -373,88 +283,52 @@ const AdminShows = () => {
         </form>
       )}
 
-      {/* Shows Grid - 2 columns */}
       {loading && shows.length === 0 ? (
         <div className='text-center py-12'>
-          <p className='text-gray-500 text-lg'>Loading shows...</p>
+          <p className='text-gray-500 text-base sm:text-lg'>Loading shows...</p>
         </div>
       ) : shows.length === 0 ? (
-        <div className='text-center py-16 bg-gray-100 rounded-xl border border-gray-200'>
-          <div className='text-6xl mb-4'></div>
-          <p className='text-gray-500 text-lg'>No shows created</p>
+        <div className='text-center py-12 sm:py-16 bg-gray-100 rounded-xl border border-gray-200'>
+          <p className='text-gray-500 text-base sm:text-lg'>No shows created</p>
           <p className='text-gray-400 text-sm mt-1'>Click "Create Show" to add your first show</p>
-          <button
-            onClick={() => {
-              resetForm()
-              setShowCreateForm(true)
-            }}
-            className='mt-4 px-6 py-2.5 bg-red-600 hover:bg-red-700 rounded-lg text-sm font-medium text-white transition-colors duration-200'
-          >
+          <button onClick={() => { resetForm(); setShowCreateForm(true) }} className='mt-4 px-6 py-2.5 bg-red-600 hover:bg-red-700 rounded-lg text-sm font-medium text-white transition-colors duration-200'>
             + Create Show
           </button>
         </div>
       ) : (
         <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
           {shows.map((show) => (
-            <div
-              key={show._id}
-              className='bg-gray-200 rounded-xl border border-gray-300 p-4 hover:shadow-md transition-shadow duration-200 flex flex-col'
-            >
-              {/* Image */}
-              <div className='w-full h-48 flex-shrink-0 rounded-lg overflow-hidden bg-gray-300 mb-3'>
+            <div key={show._id} className='bg-gray-200 rounded-xl border border-gray-300 p-4 hover:shadow-md transition-shadow duration-200 flex flex-col'>
+              <div className='w-full h-40 sm:h-48 flex-shrink-0 rounded-lg overflow-hidden bg-gray-300 mb-3'>
                 {show.image ? (
-                  <img
-                    src={show.image}
-                    alt={show.title}
-                    className='w-full h-full object-cover'
-                  />
+                  <img src={show.image} alt={show.title} className='w-full h-full object-cover' />
                 ) : (
-                  <div className='w-full h-full flex items-center justify-center text-gray-500 text-sm'>
-                    No Image
-                  </div>
+                  <div className='w-full h-full flex items-center justify-center text-gray-500 text-sm'>No Image</div>
                 )}
               </div>
-
-              {/* Content */}
               <div className='flex-1'>
-                <div className='flex items-start justify-between'>
+                <div className='flex flex-wrap items-start justify-between gap-2'>
                   <div>
-                    <h3 className='text-lg font-bold text-gray-900 hover:text-red-600 transition-colors duration-200 line-clamp-1'>
+                    <h3 className='text-base sm:text-lg font-bold text-gray-900 hover:text-red-600 transition-colors duration-200 line-clamp-1'>
                       {show.title}
                     </h3>
-                    <p className='text-sm text-gray-700'>
-                      Host: {show.host?.name || 'Unknown'}
-                    </p>
+                    <p className='text-sm text-gray-700'>Host: {show.host?.name || 'Unknown'}</p>
                   </div>
-                  <div className='flex gap-2 flex-shrink-0 ml-2'>
-                    <button
-                      onClick={() => handleEdit(show)}
-                      className='w-8 h-8 bg-blue-600 hover:bg-blue-700 rounded-lg text-white transition-colors duration-200 flex items-center justify-center'
-                      title="Edit"
-                    >
-                      <Pencil size={16} />
+                  <div className='flex gap-2'>
+                    <button onClick={() => handleEdit(show)} className='w-7 h-7 sm:w-8 sm:h-8 bg-blue-600 hover:bg-blue-700 rounded-lg text-white transition-colors duration-200 flex items-center justify-center' title="Edit">
+                      <Pencil size={14} />
                     </button>
-                    <button
-                      onClick={() => handleDelete(show._id, show.title)}
-                      className='w-8 h-8 bg-red-600 hover:bg-red-700 rounded-lg text-white transition-colors duration-200 flex items-center justify-center'
-                      title="Delete"
-                    >
-                      <Trash2 size={16} />
+                    <button onClick={() => handleDelete(show._id, show.title)} className='w-7 h-7 sm:w-8 sm:h-8 bg-red-600 hover:bg-red-700 rounded-lg text-white transition-colors duration-200 flex items-center justify-center' title="Delete">
+                      <Trash2 size={14} />
                     </button>
                   </div>
                 </div>
-
-                {/* Day & Time Badge */}
                 <div className='mt-2'>
                   <span className='inline-block bg-red-100 text-red-700 text-xs font-medium px-3 py-1 rounded-full'>
                     {formatSchedule(show)} • {formatTime(show.startTime)} - {formatTime(show.endTime)}
                   </span>
                 </div>
-
-                {/* Description */}
-                <p className='text-gray-700 text-sm mt-2 line-clamp-2'>
-                  {show.description}
-                </p>
+                <p className='text-gray-700 text-sm mt-2 line-clamp-2'>{show.description}</p>
               </div>
             </div>
           ))}

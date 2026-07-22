@@ -22,33 +22,25 @@ const HomePage = () => {
   const [currentShow, setCurrentShow] = useState(null)
   const [currentTime, setCurrentTime] = useState(new Date())
 
-  // Fetch shows on mount
   useEffect(() => {
     fetchShows()
   }, [])
 
-  // Update current time every minute
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTime(new Date())
     }, 60000)
-
     return () => clearInterval(interval)
   }, [])
 
-  // Helper function to check if current time is within a time range (handles midnight crossing)
   const isTimeInRange = (currentTimeStr, startTime, endTime) => {
-    // If start time is before end time (normal range, e.g., 09:00 - 17:00)
     if (startTime <= endTime) {
       return currentTimeStr >= startTime && currentTimeStr <= endTime
-    } 
-    // If start time is after end time (crosses midnight, e.g., 21:00 - 00:00)
-    else {
+    } else {
       return currentTimeStr >= startTime || currentTimeStr <= endTime
     }
   }
 
-  // Find the current show based on day and time
   useEffect(() => {
     if (shows.length === 0) return
 
@@ -65,17 +57,13 @@ const HomePage = () => {
       let isOnAir = false
 
       if (show.scheduleType === 'single' || !show.scheduleType) {
-        // Single day show
         const showDay = show.dayOfWeek ? show.dayOfWeek.toLowerCase() : null
-        
         if (showDay === currentDay) {
-          // ✅ Use the new time range checker that handles midnight
           if (isTimeInRange(currentTimeStr, show.startTime, show.endTime)) {
             isOnAir = true
           }
         }
       } else if (show.scheduleType === 'range') {
-        // Range show (e.g., Mon-Fri)
         const dayIndex = days.indexOf(currentDay)
         const startDayIndex = days.indexOf(show.dayRangeStart)
         const endDayIndex = days.indexOf(show.dayRangeEnd)
@@ -103,13 +91,11 @@ const HomePage = () => {
     setCurrentShow(foundShow)
   }, [shows, currentTime])
 
-  // Format day for display
   const formatDay = (day) => {
     if (!day) return ''
     return day.charAt(0).toUpperCase() + day.slice(1)
   }
 
-  // Format time for display
   const formatTime = (time) => {
     if (!time) return ''
     const [hours, minutes] = time.split(':')
@@ -119,7 +105,6 @@ const HomePage = () => {
     return `${hour12}:${minutes} ${ampm}`
   }
 
-  // Format schedule for display
   const formatSchedule = (show) => {
     if (!show) return ''
     if (show.scheduleType === 'range' && show.dayRangeStart && show.dayRangeEnd) {
@@ -132,32 +117,27 @@ const HomePage = () => {
     <div className='w-full'>
       {audioElement}
       
-      {/* Hero Section Container */}
-      <div className='max-w-7xl mx-auto px-4 pt-21 pb-6 mb-12 text-white'>
-        <div className='rounded-2xl p-6 bg-gradient-to-br from-[#3d2a2a] to-[#2a1a1a] backdrop-blur-sm relative transition-all duration-300 hover:shadow-[0_25px_70px_-15px_rgba(0,0,0,0.9)] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)]'>
+      <div className='max-w-7xl mx-auto px-4 pt-20 sm:pt-21 pb-6 mb-8 sm:mb-12 text-white'>
+        <div className='rounded-2xl p-4 sm:p-6 bg-gradient-to-br from-[#3d2a2a] to-[#2a1a1a] backdrop-blur-sm relative transition-all duration-300 hover:shadow-[0_25px_70px_-15px_rgba(0,0,0,0.9)] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)]'>
           
           <div className='absolute inset-0 rounded-2xl bg-gradient-to-br from-red-500/5 to-transparent pointer-events-none'></div>
           
-          <div className='flex gap-6 relative'>
-            {/* LEFT SIDE - 50% */}
-            <div className='w-1/2'>
-              <div className='mb-6 relative flex justify-center'>
-                <div className='bg-gradient-to-r from-red-600/60 to-red-700/40 rounded-xl py-3 px-8 text-center cursor-pointer hover:from-red-600/70 hover:to-red-700/50 transition-all duration-300 hover:scale-105 shadow-[0_0_30px_-10px_rgba(220,38,38,0.3)]'>
-                  <h2 className='text-2xl font-bold text-white'>Listen Live</h2>
+          <div className='flex flex-col lg:flex-row gap-6 relative'>
+            {/* LEFT SIDE */}
+            <div className='w-full lg:w-1/2'>
+              <div className='mb-4 sm:mb-6 relative flex justify-center'>
+                <div className='bg-gradient-to-r from-red-600/60 to-red-700/40 rounded-xl py-2 sm:py-3 px-6 sm:px-8 text-center cursor-pointer hover:from-red-600/70 hover:to-red-700/50 transition-all duration-300 hover:scale-105 shadow-[0_0_30px_-10px_rgba(220,38,38,0.3)]'>
+                  <h2 className='text-xl sm:text-2xl font-bold text-white'>Listen Live</h2>
                 </div>
               </div>
 
-              <div className='flex items-start gap-4 mb-6 relative'>
-                <div className='w-20 h-20 rounded-xl overflow-hidden flex-shrink-0'>
-                  <img
-                    src={logo}
-                    alt='Koch FM Logo'
-                    className='w-full h-full object-cover'
-                  />
+              <div className='flex flex-col sm:flex-row items-start gap-4 mb-6 relative'>
+                <div className='w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden flex-shrink-0 mx-auto sm:mx-0'>
+                  <img src={logo} alt='Koch FM Logo' className='w-full h-full object-cover' />
                 </div>
 
-                <div className='flex-1'>
-                  <p className='text-red-500 font-semibold text-lg flex items-center gap-3'>
+                <div className='flex-1 text-center sm:text-left'>
+                  <p className='text-red-500 font-semibold text-base sm:text-lg flex items-center justify-center sm:justify-start gap-3'>
                     <span className={`w-3 h-3 rounded-full animate-pulse inline-block ${isPlaying ? 'bg-red-500' : 'bg-red-500/30'}`}></span>
                     On Air
                     <span className='text-gray-400 text-sm font-normal ml-1'>{STATION_INFO.frequency}</span>
@@ -166,37 +146,30 @@ const HomePage = () => {
                 </div>
               </div>
 
-              <div className='bg-gradient-to-br from-[#5a3a3a]/30 to-[#3d2a2a]/30 rounded-xl p-4 mb-6 relative transition-all duration-300'>
-                <div className='flex items-center gap-4'>
-                  <div className='w-32 h-32 rounded-xl overflow-hidden bg-[#3d2a2a] flex-shrink-0'>
+              {/* Current Show Display */}
+              <div className='bg-gradient-to-br from-[#5a3a3a]/30 to-[#3d2a2a]/30 rounded-xl p-3 sm:p-4 mb-6 relative transition-all duration-300'>
+                <div className='flex flex-col sm:flex-row items-center sm:items-start gap-4'>
+                  <div className='w-24 h-24 sm:w-32 sm:h-32 rounded-xl overflow-hidden bg-[#3d2a2a] flex-shrink-0'>
                     {currentShow && currentShow.image ? (
-                      <img
-                        src={currentShow.image}
-                        alt={currentShow.title}
-                        className='w-full h-full object-cover'
-                      />
+                      <img src={currentShow.image} alt={currentShow.title} className='w-full h-full object-cover' />
                     ) : (
                       <div className='w-full h-full flex items-center justify-center'>
-                        <img
-                          src={logo}
-                          alt='Koch FM Logo'
-                          className='w-full h-full object-cover p-4'
-                        />
+                        <img src={logo} alt='Koch FM Logo' className='w-full h-full object-cover p-4' />
                       </div>
                     )}
                   </div>
 
-                  <div className='flex-1'>
+                  <div className='flex-1 text-center sm:text-left'>
                     {currentShow ? (
                       <>
-                        <p className='text-white text-xl font-bold hover:text-red-400 transition-colors duration-300'>
+                        <p className='text-white text-lg sm:text-xl font-bold hover:text-red-400 transition-colors duration-300'>
                           {currentShow.title}
                         </p>
-                        <p className='text-gray-400 text-sm flex items-center gap-2'>
+                        <p className='text-gray-400 text-sm flex items-center justify-center sm:justify-start gap-2'>
                           <span className='w-1.5 h-1.5 bg-red-400 rounded-full inline-block'></span>
                           {currentShow.host?.name || 'Unknown Presenter'}
                         </p>
-                        <div className='mt-2'>
+                        <div className='mt-2 flex justify-center sm:justify-start'>
                           <span className='inline-block bg-red-600/40 text-red-300 text-xs font-medium px-3 py-1 rounded-full border border-red-500/40'>
                             {formatSchedule(currentShow)} • {formatTime(currentShow.startTime)} - {formatTime(currentShow.endTime)}
                           </span>
@@ -207,30 +180,24 @@ const HomePage = () => {
                       </>
                     ) : (
                       <>
-                        <p className='text-white text-xl font-bold'>
-                          🎵 Playing Music
-                        </p>
-                        <p className='text-gray-400 text-sm'>
-                          Non-stop hits from the community
-                        </p>
-                        <p className='text-gray-500 text-xs mt-1'>
-                          Stay tuned for upcoming shows
-                        </p>
+                        <p className='text-white text-lg sm:text-xl font-bold'>🎵 Playing Music</p>
+                        <p className='text-gray-400 text-sm'>Non-stop hits from the community</p>
+                        <p className='text-gray-500 text-xs mt-1'>Stay tuned for upcoming shows</p>
                       </>
                     )}
                   </div>
                 </div>
               </div>
 
-              <div className='flex items-center gap-4 relative'>
+              <div className='flex items-center justify-center sm:justify-start gap-4 relative'>
                 <button 
                   onClick={togglePlay}
-                  className='w-14 h-14 rounded-full bg-gradient-to-br from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 flex items-center justify-center transition-all duration-300 shadow-[0_0_35px_-10px_rgba(0,0,0,0.8)] hover:shadow-[0_0_50px_-10px_rgba(0,0,0,0.9)] hover:scale-105 active:scale-95 cursor-pointer'
+                  className='w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 flex items-center justify-center transition-all duration-300 shadow-[0_0_35px_-10px_rgba(0,0,0,0.8)] hover:shadow-[0_0_50px_-10px_rgba(0,0,0,0.9)] hover:scale-105 active:scale-95 cursor-pointer'
                 >
                   {isPlaying ? (
-                    <PauseIcon className='text-white' size={28} />
+                    <PauseIcon className='text-white' size={24} />
                   ) : (
-                    <PlayIcon className='text-white ml-1' size={28} />
+                    <PlayIcon className='text-white ml-1' size={24} />
                   )}
                 </button>
 
@@ -238,22 +205,24 @@ const HomePage = () => {
               </div>
             </div>
 
-            {/* RIGHT SIDE - 50% */}
-            <div className='w-1/2'>
-              <div className='h-full flex flex-col justify-center'>
-                <h1 className='text-6xl md:text-7xl font-medium text-white mb-4 tracking-tight'>
+            {/* RIGHT SIDE */}
+            <div className='w-full lg:w-1/2'>
+              <div className='h-full flex flex-col justify-center text-center lg:text-left'>
+                <h1 className='text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium text-white mb-4 tracking-tight'>
                   {STATION_INFO.name}
                 </h1>
 
-                <p className='text-gray-300 text-base mb-6 leading-relaxed'>
+                <p className='text-gray-300 text-sm sm:text-base mb-6 leading-relaxed'>
                   {STATION_INFO.description}
                 </p>
                 
-                <SocialIcons />
+                <div className='flex justify-center lg:justify-start'>
+                  <SocialIcons />
+                </div>
                 
-                <div className='flex items-center gap-3 mt-6'>
+                <div className='flex items-center justify-center lg:justify-start gap-3 mt-6'>
                   <PhoneIcon className='text-red-400' size={20} />
-                  <span className='text-white text-lg font-medium'>{STATION_INFO.phone}</span>
+                  <span className='text-white text-base sm:text-lg font-medium'>{STATION_INFO.phone}</span>
                 </div>
               </div>
             </div>
@@ -261,10 +230,8 @@ const HomePage = () => {
         </div>
       </div>
 
-        <NewsSection />
-
       <ShowsSection />
-      
+      <NewsSection />
     </div>
   )
 }

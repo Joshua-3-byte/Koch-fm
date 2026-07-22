@@ -105,19 +105,10 @@ const AdminPresenters = () => {
           </div>
         </div>
         <div className="flex border-l border-gray-700">
-          <button
-            onClick={() => {
-              toast.dismiss(t.id)
-              deletePresenter(id)
-            }}
-            className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-red-400 hover:text-red-300 hover:bg-gray-800 focus:outline-none transition-colors duration-200"
-          >
+          <button onClick={() => { toast.dismiss(t.id); deletePresenter(id) }} className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-red-400 hover:text-red-300 hover:bg-gray-800 focus:outline-none transition-colors duration-200">
             Delete
           </button>
-          <button
-            onClick={() => toast.dismiss(t.id)}
-            className="w-full border border-transparent rounded-none p-4 flex items-center justify-center text-sm font-medium text-gray-400 hover:text-gray-300 hover:bg-gray-800 focus:outline-none transition-colors duration-200"
-          >
+          <button onClick={() => toast.dismiss(t.id)} className="w-full border border-transparent rounded-none p-4 flex items-center justify-center text-sm font-medium text-gray-400 hover:text-gray-300 hover:bg-gray-800 focus:outline-none transition-colors duration-200">
             Cancel
           </button>
         </div>
@@ -127,109 +118,51 @@ const AdminPresenters = () => {
 
   return (
     <div className='space-y-6'>
-      {/* Header */}
-      <div className='flex items-center justify-between'>
-        <h2 className='text-3xl font-bold text-gray-900'> All Presenters</h2>
-        <button
-          onClick={() => {
-            resetForm()
-            setShowCreateForm(true)
-          }}
-          className='px-6 py-3 bg-red-600 hover:bg-red-700 rounded-lg text-base font-medium text-white transition-colors duration-200 flex items-center gap-2'
-        >
-          <Plus size={20} /> Add Presenter
+      <div className='flex flex-col sm:flex-row items-center justify-between gap-4'>
+        <h2 className='text-2xl sm:text-3xl font-bold text-gray-900'>All Presenters</h2>
+        <button onClick={() => { resetForm(); setShowCreateForm(true) }} className='w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 bg-red-600 hover:bg-red-700 rounded-lg text-sm sm:text-base font-medium text-white transition-colors duration-200 flex items-center justify-center gap-2'>
+          <Plus size={18} /> Add Presenter
         </button>
       </div>
 
       <hr className='border-gray-300' />
 
-      {/* Create/Edit Form */}
       {showCreateForm && (
-        <form onSubmit={handleSubmit} className='bg-gray-100 rounded-xl p-6 border border-gray-300'>
-          <h3 className='text-xl font-semibold text-red-600 mb-4'>
+        <form onSubmit={handleSubmit} className='bg-gray-100 rounded-xl p-4 sm:p-6 border border-gray-300'>
+          <h3 className='text-lg sm:text-xl font-semibold text-red-600 mb-4'>
             {editingPresenter ? 'Edit Presenter' : 'Add New Presenter'}
           </h3>
           <div className='space-y-4'>
             <div>
               <label className='block text-sm text-gray-700 mb-1'>Name *</label>
-              <input
-                type='text'
-                name='name'
-                value={formData.name}
-                onChange={handleInputChange}
-                placeholder='Enter presenter name...'
-                className='w-full bg-white border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-red-500'
-              />
+              <input type='text' name='name' value={formData.name} onChange={handleInputChange} placeholder='Enter presenter name...' className='w-full bg-white border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-red-500' />
             </div>
 
             <div>
               <label className='block text-sm text-gray-700 mb-1'>Bio *</label>
-              <textarea
-                name='bio'
-                value={formData.bio}
-                onChange={handleInputChange}
-                rows='3'
-                placeholder='Enter presenter bio...'
-                className='w-full bg-white border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-red-500 resize-none'
-              />
+              <textarea name='bio' value={formData.bio} onChange={handleInputChange} rows='3' placeholder='Enter presenter bio...' className='w-full bg-white border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-red-500 resize-none' />
             </div>
 
             <div>
               <label className='block text-sm text-gray-700 mb-1'>Image *</label>
-              <input
-                type='file'
-                accept='image/*'
-                onChange={handleImageChange}
-                className='w-full bg-white border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-red-600 file:text-white hover:file:bg-red-700'
-              />
-              {formData.image && (
-                <p className='text-sm text-gray-500 mt-1'>Image uploaded</p>
-              )}
+              <input type='file' accept='image/*' onChange={handleImageChange} className='w-full bg-white border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-red-600 file:text-white hover:file:bg-red-700' />
+              {formData.image && <p className='text-sm text-gray-500 mt-1'>Image uploaded</p>}
             </div>
 
             <div>
               <label className='block text-sm text-gray-700 mb-1'>Social Links</label>
               <div className='space-y-2'>
-                <input
-                  type='text'
-                  name='social.twitter'
-                  value={formData.socialLinks.twitter}
-                  onChange={handleInputChange}
-                  placeholder='Twitter URL...'
-                  className='w-full bg-white border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-red-500'
-                />
-                <input
-                  type='text'
-                  name='social.instagram'
-                  value={formData.socialLinks.instagram}
-                  onChange={handleInputChange}
-                  placeholder='Instagram URL...'
-                  className='w-full bg-white border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-red-500'
-                />
-                <input
-                  type='text'
-                  name='social.facebook'
-                  value={formData.socialLinks.facebook}
-                  onChange={handleInputChange}
-                  placeholder='Facebook URL...'
-                  className='w-full bg-white border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-red-500'
-                />
+                <input type='text' name='social.twitter' value={formData.socialLinks.twitter} onChange={handleInputChange} placeholder='Twitter URL...' className='w-full bg-white border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-red-500' />
+                <input type='text' name='social.instagram' value={formData.socialLinks.instagram} onChange={handleInputChange} placeholder='Instagram URL...' className='w-full bg-white border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-red-500' />
+                <input type='text' name='social.facebook' value={formData.socialLinks.facebook} onChange={handleInputChange} placeholder='Facebook URL...' className='w-full bg-white border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-red-500' />
               </div>
             </div>
 
-            <div className='flex gap-3 pt-2'>
-              <button
-                type='submit'
-                disabled={loading}
-                className='px-6 py-2.5 bg-red-600 hover:bg-red-700 rounded-lg text-sm font-medium text-white transition-colors duration-200 disabled:opacity-50'
-              >
+            <div className='flex flex-col sm:flex-row gap-3 pt-2'>
+              <button type='submit' disabled={loading} className='px-6 py-2.5 bg-red-600 hover:bg-red-700 rounded-lg text-sm font-medium text-white transition-colors duration-200 disabled:opacity-50'>
                 {loading ? 'Saving...' : (editingPresenter ? 'Update Presenter' : 'Add Presenter')}
               </button>
-              <button
-                type='button'
-                onClick={resetForm}
-                className='px-6 py-2.5 bg-gray-200 hover:bg-gray-300 rounded-lg text-sm font-medium text-gray-700 transition-colors duration-200'
-              >
+              <button type='button' onClick={resetForm} className='px-6 py-2.5 bg-gray-200 hover:bg-gray-300 rounded-lg text-sm font-medium text-gray-700 transition-colors duration-200'>
                 Cancel
               </button>
             </div>
@@ -237,73 +170,37 @@ const AdminPresenters = () => {
         </form>
       )}
 
-      {/* Presenters Grid - 3 columns with grey background */}
       {loading && presenters.length === 0 ? (
         <div className='text-center py-12'>
-          <p className='text-gray-500 text-lg'>Loading presenters...</p>
+          <p className='text-gray-500 text-base sm:text-lg'>Loading presenters...</p>
         </div>
       ) : presenters.length === 0 ? (
-        <div className='text-center py-16 bg-gray-100 rounded-xl border border-gray-200'>
-          <div className='text-6xl mb-4'></div>
-          <p className='text-gray-500 text-lg'>No presenters added</p>
+        <div className='text-center py-12 sm:py-16 bg-gray-100 rounded-xl border border-gray-200'>
+          <p className='text-gray-500 text-base sm:text-lg'>No presenters added</p>
           <p className='text-gray-400 text-sm mt-1'>Click "Add Presenter" to add your first presenter</p>
-          <button
-            onClick={() => {
-              resetForm()
-              setShowCreateForm(true)
-            }}
-            className='mt-4 px-6 py-2.5 bg-red-600 hover:bg-red-700 rounded-lg text-sm font-medium text-white transition-colors duration-200'
-          >
+          <button onClick={() => { resetForm(); setShowCreateForm(true) }} className='mt-4 px-6 py-2.5 bg-red-600 hover:bg-red-700 rounded-lg text-sm font-medium text-white transition-colors duration-200'>
             + Add Presenter
           </button>
         </div>
       ) : (
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
           {presenters.map((presenter) => (
-            <div
-              key={presenter._id}
-              className='bg-gray-200 rounded-xl border border-gray-300 p-4 hover:shadow-md transition-shadow duration-200'
-            >
-              {/* Image */}
-              <div className='w-20 h-20 rounded-full overflow-hidden bg-gray-300 mx-auto mb-3'>
+            <div key={presenter._id} className='bg-gray-200 rounded-xl border border-gray-300 p-4 hover:shadow-md transition-shadow duration-200'>
+              <div className='w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden bg-gray-300 mx-auto mb-3'>
                 {presenter.image ? (
-                  <img
-                    src={presenter.image}
-                    alt={presenter.name}
-                    className='w-full h-full object-cover'
-                  />
+                  <img src={presenter.image} alt={presenter.name} className='w-full h-full object-cover' />
                 ) : (
-                  <div className='w-full h-full flex items-center justify-center text-gray-500 text-2xl'>
-                    
-                  </div>
+                  <div className='w-full h-full flex items-center justify-center text-gray-500 text-2xl'>🎙️</div>
                 )}
               </div>
-
-              {/* Name */}
-              <h3 className='text-lg font-bold text-gray-900 text-center'>
-                {presenter.name}
-              </h3>
-
-              {/* Bio */}
-              <p className='text-gray-700 text-sm text-center line-clamp-2 mt-1'>
-                {presenter.bio}
-              </p>
-
-              {/* Actions - Icon only with matching background size */}
+              <h3 className='text-base sm:text-lg font-bold text-gray-900 text-center'>{presenter.name}</h3>
+              <p className='text-gray-700 text-sm text-center line-clamp-2 mt-1'>{presenter.bio}</p>
               <div className='flex justify-center gap-3 mt-3 pt-3 border-t border-gray-300'>
-                <button
-                  onClick={() => handleEdit(presenter)}
-                  className='w-8 h-8 bg-blue-600 hover:bg-blue-700 rounded-lg text-white transition-colors duration-200 flex items-center justify-center'
-                  title="Edit"
-                >
-                  <Pencil size={16} />
+                <button onClick={() => handleEdit(presenter)} className='w-7 h-7 sm:w-8 sm:h-8 bg-blue-600 hover:bg-blue-700 rounded-lg text-white transition-colors duration-200 flex items-center justify-center' title="Edit">
+                  <Pencil size={14} />
                 </button>
-                <button
-                  onClick={() => handleDelete(presenter._id, presenter.name)}
-                  className='w-8 h-8 bg-red-600 hover:bg-red-700 rounded-lg text-white transition-colors duration-200 flex items-center justify-center'
-                  title="Delete"
-                >
-                  <Trash2 size={16} />
+                <button onClick={() => handleDelete(presenter._id, presenter.name)} className='w-7 h-7 sm:w-8 sm:h-8 bg-red-600 hover:bg-red-700 rounded-lg text-white transition-colors duration-200 flex items-center justify-center' title="Delete">
+                  <Trash2 size={14} />
                 </button>
               </div>
             </div>
