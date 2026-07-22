@@ -26,13 +26,7 @@ const PORT = process.env.PORT || 5001
 
 const __dirname = path.resolve()
 
-if(process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '/frontend/dist')))
 
-  app.get('*', (req,res) => {
-    res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'))
-  })
-}
 
 connectDB().then(() => {
 app.listen(PORT, () => {
