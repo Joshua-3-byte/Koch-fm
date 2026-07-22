@@ -230,8 +230,9 @@ const HomePage = () => {
         </div>
       </div>
 
+       <NewsSection />
       <ShowsSection />
-      <NewsSection />
+      
     </div>
   )
 }
