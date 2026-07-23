@@ -12,7 +12,8 @@ import LoadingSpinner from './components/LandingSpinner'
 import AllNewsPage from './pages/AllNewsPage'
 import SingleNewsPage from './pages/SingleNewsPage'
 import AboutPage from './pages/AboutPage'
-import ProjectsPage from './pages/ProjectsPage'  // ✅ ADD THIS
+import ProjectsPage from './pages/ProjectsPage'
+import ShowsPage from './pages/ShowsPage'  // ✅ ADD THIS
 
 const AppContent = () => {
   const { user, checkAuth, checkingAuth } = useUserStore()
@@ -53,7 +54,8 @@ const AppContent = () => {
           <Routes>
             <Route path='/' element={<HomePage />} />
             <Route path='/about' element={<AboutPage />} />
-            <Route path='/projects' element={<ProjectsPage />} />  {/* ✅ ADD THIS */}
+            <Route path='/projects' element={<ProjectsPage />} />
+            <Route path='/shows' element={<ShowsPage />} />  {/* ✅ ADD THIS */}
             <Route path='/news' element={<AllNewsPage />} />
             <Route path='/news/:id' element={<SingleNewsPage />} />
             <Route path='/signup' element={<SignUpPage />} />

@@ -87,7 +87,7 @@ const ProjectsPage = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className='inline-block p-4 bg-red-600/30 rounded-full mb-6'
           >
-            <span className='text-4xl'>🚀</span>
+            <span className='text-4xl'></span>
           </motion.div>
           <h1 className='text-4xl sm:text-5xl md:text-6xl font-bold mb-4'>
             Our Projects
@@ -142,7 +142,7 @@ const ProjectsPage = () => {
               </motion.div>
             )
           })}
-        </div>
+        </div> 
       </section>
 
     </div>
