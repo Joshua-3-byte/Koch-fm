@@ -13,10 +13,10 @@ const Navbar = () => {
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'About', path: '/about' },
-    { name: 'Blogs', path: '/' },
-    { name: 'Shows', path: '/' },
-    { name: 'Projects', path: '/' },
-    { name: 'Contact', path: '/' }
+    { name: 'Blogs', path: '/blogs' },
+    { name: 'Shows', path: '/shows' },
+    { name: 'Projects', path: '/projects' },
+    { name: 'Contact', path: '/contact' }
   ]
 
   const activeLinkClass = 'text-red-400 border-b-2 border-red-400'
