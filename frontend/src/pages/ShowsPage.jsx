@@ -109,7 +109,7 @@ const ShowsPage = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className='inline-block p-4 bg-red-600/30 rounded-full mb-6'
           >
-            
+            <span className='text-4xl'>📻</span>
           </motion.div>
           <h1 className='text-4xl sm:text-5xl md:text-6xl font-bold mb-4'>
             Our Shows
@@ -120,8 +120,8 @@ const ShowsPage = () => {
         </motion.div>
       </section>
 
-      {/* Shows Grid */}
-      <section className='max-w-7xl mx-auto px-4 py-12 sm:py-16'>
+      {/* Shows Grid - No padding bottom */}
+      <section className='max-w-7xl mx-auto px-4 pt-12 sm:pt-16'>
         {shows.length === 0 ? (
           <div className='text-center py-16 bg-white rounded-xl border border-gray-200'>
             <p className='text-gray-500 text-lg'>No shows available</p>
