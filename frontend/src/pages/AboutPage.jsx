@@ -105,7 +105,7 @@ const AboutPage = () => {
             The Voice of the Community
           </p>
           <p className='text-lg text-red-300'>
-            99.9 FM • Serving Nairobi's Eastern Region
+            99.9 FM • Serving Nairobi's People Settlemtn of Korogocho and sorroundings
           </p>
           <div className='mt-8 flex justify-center gap-4 flex-wrap'>
             <span className='px-4 py-2 bg-red-700/50 rounded-full text-sm'>Community Radio</span>
@@ -137,9 +137,7 @@ const AboutPage = () => {
               backgroundColor: '#d1d5db'
             }}
           >
-            <div className='w-full h-full rounded-xl bg-black/20 flex items-center justify-center'>
-              <span className='text-white text-sm bg-black/50 px-4 py-2 rounded-full'>Community Image</span>
-            </div>
+  
           </div>
         </div>
       </section>
@@ -205,7 +203,7 @@ const AboutPage = () => {
               </ul>
             </div>
           </div>
-        </div>
+        </div> 
       </section>
 
       {/* Core Programs Section */}
@@ -213,7 +211,7 @@ const AboutPage = () => {
         <div className='max-w-7xl mx-auto px-4'>
           <div className='text-center mb-12'>
             <h2 className='text-3xl sm:text-4xl font-bold text-gray-900 flex items-center justify-center gap-3'>
-              <Radio className='text-red-600' size={32} />
+              
               Our Core Programs
             </h2>
             <div className='w-20 h-1 bg-red-600 mx-auto mt-4'></div>
@@ -263,9 +261,7 @@ const AboutPage = () => {
                 backgroundColor: '#d1d5db'
               }}
             >
-              <div className='w-full h-full rounded-xl bg-black/20 flex items-center justify-center'>
-                <span className='text-white text-sm bg-black/50 px-4 py-2 rounded-full'>Community Map</span>
-              </div>
+
             </div>
           </div>
         </div>
