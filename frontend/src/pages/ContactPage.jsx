@@ -54,13 +54,13 @@ const ContactPage = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className='inline-block p-4 bg-red-600/30 rounded-full mb-6'
           >
-            <span className='text-4xl'>📬</span>
+            
           </motion.div>
           <h1 className='text-4xl sm:text-5xl md:text-6xl font-bold mb-4'>
             Contact Us
           </h1>
           <p className='text-xl sm:text-2xl text-red-200 font-light max-w-2xl mx-auto'>
-            We'd love to hear from you — reach out to us anytime
+            We'd love to hear from you, reach out to us anytime
           </p>
         </motion.div>
       </section>
@@ -88,7 +88,7 @@ const ContactPage = () => {
         </div>
       </section>
 
-      {/* Map Section */}
+      {/* Map Section with Embedded Google Map */}
       <section className='max-w-7xl mx-auto px-4 py-16'>
         <motion.div
           className='rounded-2xl overflow-hidden shadow-xl border border-gray-200'
@@ -96,12 +96,17 @@ const ContactPage = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
         >
-          <div className='w-full h-96 bg-gray-300 flex items-center justify-center'>
-            <div className='text-center'>
-              <MapPin size={48} className='text-red-500 mx-auto mb-2' />
-              <p className='text-gray-600 text-lg'>Kariobangi, Nairobi</p>
-              <p className='text-gray-400 text-sm'>Google Map will be embedded here</p>
-            </div>
+          <div className='w-full h-96'>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3973.277423627588!2d36.879960974952695!3d-1.2565315355942852!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f1551dbc26ced%3A0x69d37dd92cf2ea39!2sLandmark%20plaza!5e1!3m2!1sen!2ske!4v1784827245204!5m2!1sen!2ske"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin"
+              title="Koch FM Location Map"
+            />
           </div>
         </motion.div>
       </section>
@@ -114,7 +119,7 @@ const ContactPage = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
-          <h2 className='text-2xl font-bold text-gray-900 mb-6'>📲 Follow Us</h2>
+          <h2 className='text-2xl font-bold text-gray-900 mb-6'> Follow Us</h2>
           <div className='flex justify-center gap-6 flex-wrap'>
             {socialLinks.map((social, index) => (
               <motion.a
