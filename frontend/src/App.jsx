@@ -11,7 +11,7 @@ import { AdminLandingPage } from './pages/AdminLandingPage'
 import LoadingSpinner from './components/LandingSpinner'
 import AllNewsPage from './pages/AllNewsPage'
 import SingleNewsPage from './pages/SingleNewsPage'
-import { AboutPage } from './pages/AboutPage'  // ✅ ADD THIS
+import AboutPage from './pages/AboutPage'
 
 const AppContent = () => {
   const { user, checkAuth, checkingAuth } = useUserStore()
@@ -75,7 +75,7 @@ const AppContent = () => {
 
       <Toaster />
     </div>
-  )
+  ) 
 }
 
 function App() {
