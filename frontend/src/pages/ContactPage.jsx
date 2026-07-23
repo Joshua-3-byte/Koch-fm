@@ -8,26 +8,22 @@ const ContactPage = () => {
     {
       icon: <Phone size={28} className='text-red-500' />,
       title: 'Phone',
-      details: ['0745 608505'],
-      color: 'bg-red-50'
+      details: ['0745 608505']
     },
     {
       icon: <Mail size={28} className='text-red-500' />,
       title: 'Email',
-      details: ['info@kochfm.com'],
-      color: 'bg-red-50'
+      details: ['info@kochfm.com']
     },
     {
       icon: <MapPin size={28} className='text-red-500' />,
       title: 'Address',
-      details: ['Kariobangi, Nairobi, Kenya'],
-      color: 'bg-red-50'
+      details: ['Kariobangi, Nairobi, Kenya']
     },
     {
       icon: <Clock size={28} className='text-red-500' />,
       title: 'Working Hours',
-      details: ['Mon-Fri: 6:00 AM - 10:00 PM', 'Sat-Sun: 8:00 AM - 8:00 PM'],
-      color: 'bg-red-50'
+      details: ['Mon-Fri: 6:00 AM - 10:00 PM', 'Sat-Sun: 8:00 AM - 8:00 PM']
     }
   ]
 
@@ -40,11 +36,9 @@ const ContactPage = () => {
 
   return (
     <div className='w-full bg-gray-100 min-h-screen'>
-      
       {/* Hero Section */}
       <section className='relative bg-gradient-to-br from-red-900 to-red-800 text-white min-h-[40vh] flex items-center justify-center overflow-hidden'>
         <div className='absolute inset-0 bg-black/40'></div>
-        
         <motion.div 
           className='relative z-10 max-w-7xl mx-auto px-4 text-center'
           initial={{ opacity: 0, y: -30 }}
@@ -117,9 +111,7 @@ const ContactPage = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
-          <h2 className='text-2xl font-bold text-gray-900 mb-6'>
-            📲 Follow Us
-          </h2>
+          <h2 className='text-2xl font-bold text-gray-900 mb-6'>📲 Follow Us</h2>
           <div className='flex justify-center gap-6 flex-wrap'>
             {socialLinks.map((social, index) => (
               <motion.a
@@ -137,7 +129,6 @@ const ContactPage = () => {
           </div>
         </motion.div>
       </section>
-
     </div>
   )
 }
