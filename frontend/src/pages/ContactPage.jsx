@@ -1,7 +1,8 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { Phone, Mail, MapPin, Clock } from 'lucide-react'
-import { FaFacebook, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa'
+import { FaFacebook, FaInstagram, FaTiktok } from 'react-icons/fa'
+import { FaXTwitter } from 'react-icons/fa6'
 
 const ContactPage = () => {
   const contactInfo = [
@@ -29,16 +30,18 @@ const ContactPage = () => {
 
   const socialLinks = [
     { icon: <FaFacebook size={24} />, label: 'Facebook', href: 'https://facebook.com' },
-    { icon: <FaTwitter size={24} />, label: 'Twitter', href: 'https://twitter.com' },
+    { icon: <FaXTwitter size={24} />, label: 'Twitter', href: 'https://twitter.com' },
     { icon: <FaInstagram size={24} />, label: 'Instagram', href: 'https://instagram.com' },
-    { icon: <FaYoutube size={24} />, label: 'YouTube', href: 'https://youtube.com' }
+    { icon: <FaTiktok size={24} />, label: 'TikTok', href: 'https://tiktok.com' }
   ]
 
   return (
     <div className='w-full bg-gray-100 min-h-screen'>
-      {/* Hero Section */}
-      <section className='relative bg-gradient-to-br from-red-900 to-red-800 text-white min-h-[40vh] flex items-center justify-center overflow-hidden'>
+      
+      {/* Hero Section - extends below cards */}
+      <section className='relative bg-gradient-to-br from-red-900 to-red-800 text-white pb-32 pt-16 sm:pt-20 overflow-hidden'>
         <div className='absolute inset-0 bg-black/40'></div>
+        
         <motion.div 
           className='relative z-10 max-w-7xl mx-auto px-4 text-center'
           initial={{ opacity: 0, y: -30 }}
@@ -62,8 +65,8 @@ const ContactPage = () => {
         </motion.div>
       </section>
 
-      {/* Contact Cards */}
-      <section className='max-w-7xl mx-auto px-4 -mt-8 relative z-20'>
+      {/* Contact Cards - Overlapping the hero */}
+      <section className='max-w-7xl mx-auto px-4 -mt-24 relative z-20'>
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4'>
           {contactInfo.map((item, index) => (
             <motion.div
@@ -129,6 +132,7 @@ const ContactPage = () => {
           </div>
         </motion.div>
       </section>
+
     </div>
   )
 }
