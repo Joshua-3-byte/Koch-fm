@@ -38,8 +38,8 @@ const ContactPage = () => {
   return (
     <div className='w-full bg-gray-100 min-h-screen'>
       
-      {/* Hero Section - extends below cards */}
-      <section className='relative bg-gradient-to-br from-red-900 to-red-800 text-white pb-32 pt-16 sm:pt-20 overflow-hidden'>
+      {/* Hero Section - Red background extends below cards */}
+      <section className='relative bg-gradient-to-br from-red-900 to-red-800 text-white pb-48 pt-16 sm:pt-20 overflow-hidden'>
         <div className='absolute inset-0 bg-black/40'></div>
         
         <motion.div 
@@ -65,8 +65,8 @@ const ContactPage = () => {
         </motion.div>
       </section>
 
-      {/* Contact Cards - Overlapping the hero */}
-      <section className='max-w-7xl mx-auto px-4 -mt-24 relative z-20'>
+      {/* Contact Cards - Overlapping the hero with more overlap */}
+      <section className='max-w-7xl mx-auto px-4 -mt-40 relative z-20'>
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4'>
           {contactInfo.map((item, index) => (
             <motion.div
