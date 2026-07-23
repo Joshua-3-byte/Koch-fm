@@ -1,15 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { 
-  Phone, 
-  Mail, 
-  MapPin, 
-  Clock, 
-  Facebook, 
-  Twitter, 
-  Instagram, 
-  Youtube 
-} from 'lucide-react'
+import { Phone, Mail, MapPin, Clock } from 'lucide-react'
+import { FaFacebook, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa'
 
 const ContactPage = () => {
   const contactInfo = [
@@ -40,10 +32,10 @@ const ContactPage = () => {
   ]
 
   const socialLinks = [
-    { icon: <Facebook size={24} />, label: 'Facebook', href: 'https://facebook.com' },
-    { icon: <Twitter size={24} />, label: 'Twitter', href: 'https://twitter.com' },
-    { icon: <Instagram size={24} />, label: 'Instagram', href: 'https://instagram.com' },
-    { icon: <Youtube size={24} />, label: 'YouTube', href: 'https://youtube.com' }
+    { icon: <FaFacebook size={24} />, label: 'Facebook', href: 'https://facebook.com' },
+    { icon: <FaTwitter size={24} />, label: 'Twitter', href: 'https://twitter.com' },
+    { icon: <FaInstagram size={24} />, label: 'Instagram', href: 'https://instagram.com' },
+    { icon: <FaYoutube size={24} />, label: 'YouTube', href: 'https://youtube.com' }
   ]
 
   return (
