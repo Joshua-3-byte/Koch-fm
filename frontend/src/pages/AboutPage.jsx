@@ -105,7 +105,7 @@ const AboutPage = () => {
             The Voice of the Community
           </p>
           <p className='text-lg text-red-300'>
-            99.9 FM • Serving Nairobi's People Settlemtn of Korogocho and sorroundings
+            99.9 FM • Serving Nairobi's People Settlement of Korogocho and sorroundings
           </p>
           <div className='mt-8 flex justify-center gap-4 flex-wrap'>
             <span className='px-4 py-2 bg-red-700/50 rounded-full text-sm'>Community Radio</span>
