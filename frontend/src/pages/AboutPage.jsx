@@ -68,7 +68,7 @@ const AboutPage = () => {
 
   const communities = [
     'Korogocho', 'Kariobangi', 'Huruma', 'Mathare',
-    'Babadogo', 'Dandora', 'Kayole', 'Umoja'
+    'Babadogo', 'Dandora', 
   ]
 
   return (
@@ -248,7 +248,7 @@ const AboutPage = () => {
               </p>
               <div className='flex flex-wrap gap-2'>
                 {communities.map((place, index) => (
-                  <span key={index} className='px-4 py-2 bg-red-50 text-red-700 rounded-full text-sm font-medium border border-red-200'>
+                  <span key={index} className='px-4 py-2 bg-red-50 text-red-700  text-sm font-medium border border-red-200'>
                     {place}
                   </span>
                 ))}
