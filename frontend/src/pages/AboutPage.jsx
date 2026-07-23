@@ -74,8 +74,8 @@ const AboutPage = () => {
   return (
     <div className='w-full bg-gray-100 min-h-screen pt-16 sm:pt-20'>
       
-      {/* Hero Section with Sliding Images */}
-      <section className='relative bg-gradient-to-br from-red-900 to-red-800 text-white py-20 sm:py-28 overflow-hidden'>
+      {/* Hero Section with Sliding Images - Full Screen */}
+      <section className='relative bg-gradient-to-br from-red-900 to-red-800 text-white min-h-[calc(100vh-80px)] sm:min-h-[calc(100vh-96px)] flex items-center justify-center overflow-hidden'>
         {/* Sliding Background Images */}
         <div className='absolute inset-0'>
           {heroImages.map((image, index) => (
@@ -91,10 +91,10 @@ const AboutPage = () => {
             />
           ))}
           {/* Dark overlay */}
-          <div className='absolute inset-0 bg-black/50'></div>
+          <div className='absolute inset-0 bg-black/60'></div>
         </div>
         
-        <div className='relative z-10 max-w-7xl mx-auto px-4 text-center'>
+        <div className='relative z-10 max-w-7xl mx-auto px-4 text-center py-20'>
           <div className='inline-block p-4 bg-red-600/20 rounded-full mb-6'>
             <Mic size={48} className='text-red-300' />
           </div>
