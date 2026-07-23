@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { 
   Mic, 
@@ -12,12 +12,31 @@ import {
   Heart, 
   Shield, 
   BookOpen,
-  Radio,
-  User,
-  Globe
+  Radio
 } from 'lucide-react'
 
+// Sample images - Replace these with your actual image URLs
+const heroImages = [
+  'https://images.unsplash.com/photo-1590602847861-f357f9332b0c?w=1200&h=600&fit=crop', // Radio studio
+  'https://images.unsplash.com/photo-1589903308904-1010c2294adc?w=1200&h=600&fit=crop', // Community
+  'https://images.unsplash.com/photo-1516222338250-5d4f8f1ac024?w=1200&h=600&fit=crop', // Microphone
+  'https://images.unsplash.com/photo-1581091226033-d5fdb1f1f5e1?w=1200&h=600&fit=crop'  // People talking
+]
+
 const AboutPage = () => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+
+  // Auto-slide every 5 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => 
+        prevIndex === heroImages.length - 1 ? 0 : prevIndex + 1
+      )
+    }, 5000)
+
+    return () => clearInterval(interval)
+  }, [])
+
   const programs = [
     {
       icon: <Shield size={28} />,
@@ -57,17 +76,27 @@ const AboutPage = () => {
   ]
 
   return (
-    <div className='w-full bg-gray-50 min-h-screen pt-16 sm:pt-20'>
+    <div className='w-full bg-gray-100 min-h-screen pt-16 sm:pt-20'>
       
-      {/* Hero Section */}
-      <section className='relative bg-gradient-to-br from-red-900 to-red-800 text-white py-20 sm:py-28'>
-        <div 
-          className='absolute inset-0 opacity-20 bg-cover bg-center bg-blend-overlay'
-          style={{
-            backgroundImage: 'url(/images/studio-bg.jpg)',
-            backgroundColor: 'rgba(0,0,0,0.3)'
-          }}
-        ></div>
+      {/* Hero Section with Sliding Images */}
+      <section className='relative bg-gradient-to-br from-red-900 to-red-800 text-white py-20 sm:py-28 overflow-hidden'>
+        {/* Sliding Background Images */}
+        <div className='absolute inset-0'>
+          {heroImages.map((image, index) => (
+            <div
+              key={index}
+              className={`absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-1000 ease-in-out ${
+                index === currentImageIndex ? 'opacity-30' : 'opacity-0'
+              }`}
+              style={{
+                backgroundImage: `url(${image})`,
+                backgroundColor: 'rgba(0,0,0,0.3)'
+              }}
+            />
+          ))}
+          {/* Dark overlay */}
+          <div className='absolute inset-0 bg-black/50'></div>
+        </div>
         
         <div className='relative z-10 max-w-7xl mx-auto px-4 text-center'>
           <div className='inline-block p-4 bg-red-600/20 rounded-full mb-6'>
@@ -99,10 +128,10 @@ const AboutPage = () => {
               Our Story
             </h2>
             <div className='w-20 h-1 bg-red-600 mb-6'></div>
-            <p className='text-gray-600 text-base sm:text-lg leading-relaxed mb-4'>
-              Koch FM was born in <span className='font-semibold text-gray-800'>2006</span> when a group of <span className='font-semibold text-gray-800'>ten youth</span> from Korogocho decided to change the narrative. Tired of being portrayed only through stories of crime and poverty, they created a platform where residents could tell their own stories and celebrate their community.
+            <p className='text-gray-700 text-base sm:text-lg leading-relaxed mb-4'>
+              Koch FM was born in <span className='font-semibold text-gray-900'>2006</span> when a group of <span className='font-semibold text-gray-900'>ten youth</span> from Korogocho decided to change the narrative. Tired of being portrayed only through stories of crime and poverty, they created a platform where residents could tell their own stories and celebrate their community.
             </p>
-            <p className='text-gray-600 text-base sm:text-lg leading-relaxed'>
+            <p className='text-gray-700 text-base sm:text-lg leading-relaxed'>
               Today, Koch FM stands as one of Kenya's earliest urban community radio initiatives, serving as a vital platform for community participation and positive change.
             </p>
           </div>
@@ -121,12 +150,12 @@ const AboutPage = () => {
       </section>
 
       {/* Mission & Purpose Section */}
-      <section className='bg-white py-16 sm:py-20'>
+      <section className='bg-gray-100 py-16 sm:py-20'>
         <div className='max-w-7xl mx-auto px-4'>
           <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
             
             {/* Mission */}
-            <div className='bg-gray-50 rounded-2xl p-8 border border-gray-200 hover:shadow-lg transition-shadow duration-300'>
+            <div className='bg-white rounded-2xl p-8 border border-gray-200 hover:shadow-lg transition-shadow duration-300'>
               <div className='flex items-center gap-3 mb-4'>
                 <div className='p-3 bg-red-100 rounded-full'>
                   <Target className='text-red-600' size={28} />
@@ -157,7 +186,7 @@ const AboutPage = () => {
             </div>
 
             {/* Purpose */}
-            <div className='bg-gray-50 rounded-2xl p-8 border border-gray-200 hover:shadow-lg transition-shadow duration-300'>
+            <div className='bg-white rounded-2xl p-8 border border-gray-200 hover:shadow-lg transition-shadow duration-300'>
               <div className='flex items-center gap-3 mb-4'>
                 <div className='p-3 bg-red-100 rounded-full'>
                   <Lightbulb className='text-red-600' size={28} />
@@ -219,7 +248,7 @@ const AboutPage = () => {
       </section>
 
       {/* Our Community Section */}
-      <section className='bg-white py-16 sm:py-20'>
+      <section className='bg-gray-100 py-16 sm:py-20'>
         <div className='max-w-7xl mx-auto px-4'>
           <div className='grid grid-cols-1 lg:grid-cols-2 gap-12 items-center'>
             <div>
@@ -228,7 +257,7 @@ const AboutPage = () => {
                 Our Community
               </h2>
               <div className='w-20 h-1 bg-red-600 mb-6'></div>
-              <p className='text-gray-600 text-base sm:text-lg leading-relaxed mb-6'>
+              <p className='text-gray-700 text-base sm:text-lg leading-relaxed mb-6'>
                 Koch FM primarily serves Korogocho and neighbouring communities within Nairobi's eastern region, empowering residents to participate directly in programme production and discussions affecting their lives.
               </p>
               <div className='flex flex-wrap gap-2'>
@@ -290,5 +319,4 @@ const AboutPage = () => {
   )
 }
 
-// ✅ This is the important part - export default
 export default AboutPage
