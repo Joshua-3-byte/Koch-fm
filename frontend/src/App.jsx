@@ -11,6 +11,7 @@ import { AdminLandingPage } from './pages/AdminLandingPage'
 import LoadingSpinner from './components/LandingSpinner'
 import AllNewsPage from './pages/AllNewsPage'
 import SingleNewsPage from './pages/SingleNewsPage'
+import { AboutPage } from './pages/AboutPage'  // ✅ ADD THIS
 
 const AppContent = () => {
   const { user, checkAuth, checkingAuth } = useUserStore()
@@ -50,6 +51,7 @@ const AppContent = () => {
         <main className='flex-grow'>
           <Routes>
             <Route path='/' element={<HomePage />} />
+            <Route path='/about' element={<AboutPage />} />  {/* ✅ ADD THIS */}
             <Route path='/news' element={<AllNewsPage />} />
             <Route path='/news/:id' element={<SingleNewsPage />} />
             <Route path='/signup' element={<SignUpPage />} />

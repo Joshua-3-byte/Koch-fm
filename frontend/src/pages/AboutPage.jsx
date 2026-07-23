@@ -10,14 +10,7 @@ const Navbar = () => {
     setIsOpen(!isOpen)
   }
 
-  const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'About', path: '/about' },  // ✅ CHANGED
-    { name: 'Blogs', path: '/' },
-    { name: 'Shows', path: '/' },
-    { name: 'Projects', path: '/' },
-    { name: 'Contact', path: '/' }
-  ]
+  const navLinks = ['Home', 'About', 'Blogs', 'Shows', 'Projects', 'Contact']
 
   return (
     <header className='fixed top-0 left-0 w-full bg-red-900/90 backdrop-blur-md shadow-lg z-40 transition-all duration-300 border-b border-red-800'>
@@ -35,12 +28,8 @@ const Navbar = () => {
           {/* Desktop Nav */}
           <nav className='hidden lg:flex flex-wrap items-center gap-8 xl:gap-12 font-semibold'>
             {navLinks.map((link) => (
-              <Link 
-                key={link.name} 
-                to={link.path} 
-                className='transition-colors duration-300 hover:text-red-400 text-sm xl:text-base'
-              >
-                {link.name}
+              <Link key={link} to='/' className='transition-colors duration-300 hover:text-red-400 text-sm xl:text-base'>
+                {link}
               </Link>
             ))}
           </nav>
@@ -51,12 +40,12 @@ const Navbar = () => {
           <nav className='flex flex-col items-center gap-3 font-semibold'>
             {navLinks.map((link) => (
               <Link
-                key={link.name}
-                to={link.path}
+                key={link}
+                to='/'
                 className='transition-colors duration-300 hover:text-red-400 text-base w-full text-center py-2 border-b border-red-800/50 last:border-0'
                 onClick={() => setIsOpen(false)}
               >
-                {link.name}
+                {link}
               </Link>
             ))}
           </nav>
