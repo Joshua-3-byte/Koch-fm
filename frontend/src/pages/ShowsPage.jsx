@@ -82,7 +82,7 @@ const ShowsPage = () => {
 
   if (loading) {
     return (
-      <div className='w-full bg-gray-100 min-h-screen py-12 mt-16 sm:mt-20 relative z-10'>
+      <div className='w-full bg-gray-100 min-h-screen py-12 relative z-10'>
         <div className='max-w-7xl mx-auto px-4 text-center'>
           <p className='text-gray-500 text-lg'>Loading shows...</p>
         </div>
@@ -91,10 +91,10 @@ const ShowsPage = () => {
   }
 
   return (
-    <div className='w-full bg-gray-100 min-h-screen pt-16 sm:pt-20'>
+    <div className='w-full bg-gray-100 min-h-screen'>
       
-      {/* Hero Section */}
-      <section className='relative bg-gradient-to-br from-red-900 to-red-800 text-white py-16 sm:py-20 overflow-hidden'>
+      {/* Hero Section - No padding top */}
+      <section className='relative bg-gradient-to-br from-red-900 to-red-800 text-white min-h-[50vh] flex items-center justify-center overflow-hidden'>
         <div className='absolute inset-0 bg-black/40'></div>
         
         <motion.div 
@@ -109,7 +109,7 @@ const ShowsPage = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className='inline-block p-4 bg-red-600/30 rounded-full mb-6'
           >
-            <span className='text-4xl'>📻</span>
+            
           </motion.div>
           <h1 className='text-4xl sm:text-5xl md:text-6xl font-bold mb-4'>
             Our Shows
