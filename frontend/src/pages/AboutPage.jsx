@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { 
   Mic, 
-  Target, 
-  Lightbulb, 
   MapPin, 
   Phone, 
   Mail, 
@@ -11,16 +9,14 @@ import {
   Music, 
   Heart, 
   Shield, 
-  BookOpen,
   Radio
 } from 'lucide-react'
 
-// Sample images - Replace these with your actual image URLs
+// Your images from public folder
 const heroImages = [
-  'https://images.unsplash.com/photo-1590602847861-f357f9332b0c?w=1200&h=600&fit=crop', // Radio studio
-  'https://images.unsplash.com/photo-1589903308904-1010c2294adc?w=1200&h=600&fit=crop', // Community
-  'https://images.unsplash.com/photo-1516222338250-5d4f8f1ac024?w=1200&h=600&fit=crop', // Microphone
-  'https://images.unsplash.com/photo-1581091226033-d5fdb1f1f5e1?w=1200&h=600&fit=crop'  // People talking
+  '/about1.jpg',
+  '/about2.jpg',
+  '/about3.jpg'
 ]
 
 const AboutPage = () => {
@@ -109,12 +105,12 @@ const AboutPage = () => {
             The Voice of the Community
           </p>
           <p className='text-lg text-red-300'>
-            📡 99.9 FM • Serving Nairobi's Eastern Region
+            99.9 FM • Serving Nairobi's Eastern Region
           </p>
           <div className='mt-8 flex justify-center gap-4 flex-wrap'>
-            <span className='px-4 py-2 bg-red-700/50 rounded-full text-sm'>🎙️ Community Radio</span>
-            <span className='px-4 py-2 bg-red-700/50 rounded-full text-sm'>📅 Est. 2006</span>
-            <span className='px-4 py-2 bg-red-700/50 rounded-full text-sm'>📻 Non-Profit</span>
+            <span className='px-4 py-2 bg-red-700/50 rounded-full text-sm'>Community Radio</span>
+            <span className='px-4 py-2 bg-red-700/50 rounded-full text-sm'>Est. 2006</span>
+            <span className='px-4 py-2 bg-red-700/50 rounded-full text-sm'>Non-Profit</span>
           </div>
         </div>
       </section>
@@ -123,8 +119,7 @@ const AboutPage = () => {
       <section className='max-w-7xl mx-auto px-4 py-16 sm:py-20'>
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-12 items-center'>
           <div>
-            <h2 className='text-3xl sm:text-4xl font-bold text-gray-900 mb-4 flex items-center gap-3'>
-              <BookOpen className='text-red-600' size={32} />
+            <h2 className='text-3xl sm:text-4xl font-bold text-gray-900 mb-4'>
               Our Story
             </h2>
             <div className='w-20 h-1 bg-red-600 mb-6'></div>
@@ -138,12 +133,12 @@ const AboutPage = () => {
           <div 
             className='h-80 sm:h-96 rounded-xl bg-gray-300 bg-cover bg-center shadow-xl'
             style={{
-              backgroundImage: 'url(/images/community-bg.jpg)',
+              backgroundImage: 'url(/community2.jpg)',
               backgroundColor: '#d1d5db'
             }}
           >
             <div className='w-full h-full rounded-xl bg-black/20 flex items-center justify-center'>
-              <span className='text-white text-sm bg-black/50 px-4 py-2 rounded-full'>📷 Community Image</span>
+              <span className='text-white text-sm bg-black/50 px-4 py-2 rounded-full'>Community Image</span>
             </div>
           </div>
         </div>
@@ -157,9 +152,6 @@ const AboutPage = () => {
             {/* Mission */}
             <div className='bg-white rounded-2xl p-8 border border-gray-200 hover:shadow-lg transition-shadow duration-300'>
               <div className='flex items-center gap-3 mb-4'>
-                <div className='p-3 bg-red-100 rounded-full'>
-                  <Target className='text-red-600' size={28} />
-                </div>
                 <h3 className='text-2xl font-bold text-gray-900'>Our Mission</h3>
               </div>
               <p className='text-gray-600 text-base leading-relaxed mb-4'>
@@ -188,9 +180,6 @@ const AboutPage = () => {
             {/* Purpose */}
             <div className='bg-white rounded-2xl p-8 border border-gray-200 hover:shadow-lg transition-shadow duration-300'>
               <div className='flex items-center gap-3 mb-4'>
-                <div className='p-3 bg-red-100 rounded-full'>
-                  <Lightbulb className='text-red-600' size={28} />
-                </div>
                 <h3 className='text-2xl font-bold text-gray-900'>Our Purpose</h3>
               </div>
               <p className='text-gray-600 text-base leading-relaxed mb-4'>
@@ -252,8 +241,7 @@ const AboutPage = () => {
         <div className='max-w-7xl mx-auto px-4'>
           <div className='grid grid-cols-1 lg:grid-cols-2 gap-12 items-center'>
             <div>
-              <h2 className='text-3xl sm:text-4xl font-bold text-gray-900 mb-4 flex items-center gap-3'>
-                <MapPin className='text-red-600' size={32} />
+              <h2 className='text-3xl sm:text-4xl font-bold text-gray-900 mb-4'>
                 Our Community
               </h2>
               <div className='w-20 h-1 bg-red-600 mb-6'></div>
@@ -271,12 +259,12 @@ const AboutPage = () => {
             <div 
               className='h-80 sm:h-96 rounded-xl bg-gray-300 bg-cover bg-center shadow-xl'
               style={{
-                backgroundImage: 'url(/images/map-bg.jpg)',
+                backgroundImage: 'url(/community1.jpg)',
                 backgroundColor: '#d1d5db'
               }}
             >
               <div className='w-full h-full rounded-xl bg-black/20 flex items-center justify-center'>
-                <span className='text-white text-sm bg-black/50 px-4 py-2 rounded-full'>🗺️ Community Map</span>
+                <span className='text-white text-sm bg-black/50 px-4 py-2 rounded-full'>Community Map</span>
               </div>
             </div>
           </div>
@@ -287,7 +275,7 @@ const AboutPage = () => {
       <section className='bg-gradient-to-br from-red-900 to-red-800 text-white py-16 sm:py-20'>
         <div className='max-w-7xl mx-auto px-4 text-center'>
           <h2 className='text-3xl sm:text-4xl font-bold mb-4'>
-            🎙️ Join the Conversation
+            Join the Conversation
           </h2>
           <p className='text-lg text-red-200 max-w-2xl mx-auto mb-8'>
             Tune in to <span className='font-bold text-white'>99.9 FM</span> or reach out to us to share your story, suggest topics, or get involved in our community programming.
