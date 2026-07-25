@@ -7,7 +7,7 @@ import {
   getNewsByCategory, 
   getTrendingNews, 
   updateNews,
-  getSingleNews   // ✅ ADD THIS
+  getSingleNews   
 } from "../controllers/newsController.js";
 import { adminRoute, protectRoute } from "../middleware/authMiddleware.js";
 
@@ -17,7 +17,7 @@ router.get('/', getAllNews)
 router.get('/breaking', getBreakingNews)
 router.get('/trending', getTrendingNews)
 router.get('/category/:category', getNewsByCategory)
-router.get('/:id', getSingleNews)  // ✅ ADD THIS ROUTE
+router.get('/:id', getSingleNews)  
 
 router.post('/', protectRoute, adminRoute, createNews)
 router.put('/:id', protectRoute, adminRoute, updateNews)

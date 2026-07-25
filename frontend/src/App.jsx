@@ -14,7 +14,9 @@ import SingleNewsPage from './pages/SingleNewsPage'
 import AboutPage from './pages/AboutPage'
 import ProjectsPage from './pages/ProjectsPage'
 import ShowsPage from './pages/ShowsPage'
-import ContactPage from './pages/ContactPage'  // ✅ ADD THIS
+import ContactPage from './pages/ContactPage'
+import BlogsPage from './pages/BlogsPage'  // ✅ ADD THIS
+import SingleBlogPage from './pages/SingleBlogPage'  // ✅ ADD THIS
 
 const AppContent = () => {
   const { user, checkAuth, checkingAuth } = useUserStore()
@@ -57,7 +59,9 @@ const AppContent = () => {
             <Route path='/about' element={<AboutPage />} />
             <Route path='/projects' element={<ProjectsPage />} />
             <Route path='/shows' element={<ShowsPage />} />
-            <Route path='/contact' element={<ContactPage />} />  {/* ✅ ADD THIS */}
+            <Route path='/contact' element={<ContactPage />} />
+            <Route path='/blogs' element={<BlogsPage />} />  {/* ✅ ADD THIS */}
+            <Route path='/blogs/:id' element={<SingleBlogPage />} />  {/* ✅ ADD THIS */}
             <Route path='/news' element={<AllNewsPage />} />
             <Route path='/news/:id' element={<SingleNewsPage />} />
             <Route path='/signup' element={<SignUpPage />} />

@@ -4,12 +4,14 @@ import AdminDashboard from '../components/AdminDashboard'
 import AdminStories from '../components/AdminStories'
 import AdminShows from '../components/AdminShows'
 import AdminPresenters from '../components/AdminPresenters'
+import AdminBlogs from '../components/AdminBlogs'  // ✅ ADD THIS
 
 const tabs = [
   { id: 'dashboard', label: 'Dashboard' },
   { id: 'stories', label: 'Stories' },
   { id: 'shows', label: 'Shows' },
-  { id: 'presenters', label: 'Presenters' }
+  { id: 'presenters', label: 'Presenters' },
+  { id: 'blogs', label: 'Blogs' }  // ✅ ADD THIS
 ]
 
 export const AdminLandingPage = () => {
@@ -58,6 +60,7 @@ export const AdminLandingPage = () => {
         {activeTab === 'stories' && <AdminStories />}
         {activeTab === 'shows' && <AdminShows />}
         {activeTab === 'presenters' && <AdminPresenters />}
+        {activeTab === 'blogs' && <AdminBlogs />}  {/* ✅ ADD THIS */}
       </div>
     </div>
   )

@@ -10,10 +10,10 @@ import cookieParser from "cookie-parser";
 import newsRoute from "./routes/newsRoute.js";
 import presentersRoute from "./routes/presentersRoute.js";
 import shows from "./routes/showsRoute.js";
+import blogsRoute from "./routes/blogsRoute.js";  // ✅ Correct import
 
 const app = express();
 
-// Tell Express it's behind Render's proxy
 app.set("trust proxy", 1);
 
 // Body parser
@@ -35,6 +35,7 @@ app.use("/api/auth/admin", authRoute);
 app.use("/api/news", newsRoute);
 app.use("/api/presenters", presentersRoute);
 app.use("/api/shows", shows);
+app.use("/api/blogs", blogsRoute);  // ✅ FIXED: Changed from newsRoute to blogsRoute
 
 const PORT = process.env.PORT || 5001;
 
