@@ -118,7 +118,7 @@ const AdminBlogs = () => {
     <div className='space-y-6'>
       {/* Header */}
       <div className='flex flex-col sm:flex-row items-center justify-between gap-4'>
-        <h2 className='text-2xl sm:text-3xl font-bold text-gray-900'>📝 All Blogs</h2>
+        <h2 className='text-2xl sm:text-3xl font-bold text-gray-900'> All Blogs</h2>
         <button
           onClick={() => {
             resetForm()
@@ -284,7 +284,7 @@ const AdminBlogs = () => {
                   {blog.content}
                 </p>
               </div>
-            </div>
+            </div> 
           ))}
         </div>
       )}
