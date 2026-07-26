@@ -1,24 +1,30 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
+import { useUserStore } from '../stores/useUserStore'
 import AdminDashboard from '../components/AdminDashboard'
 import AdminStories from '../components/AdminStories'
 import AdminShows from '../components/AdminShows'
 import AdminPresenters from '../components/AdminPresenters'
-import AdminBlogs from '../components/AdminBlogs'  // ✅ ADD THIS
+import AdminBlogs from '../components/AdminBlogs'
 
 const tabs = [
   { id: 'dashboard', label: 'Dashboard' },
   { id: 'stories', label: 'Stories' },
   { id: 'shows', label: 'Shows' },
   { id: 'presenters', label: 'Presenters' },
-  { id: 'blogs', label: 'Blogs' }  // ✅ ADD THIS
+  { id: 'blogs', label: 'Blogs' }
 ]
 
 export const AdminLandingPage = () => {
   const [activeTab, setActiveTab] = useState('dashboard')
+  const { logout, loading } = useUserStore()
+
+  const handleLogout = async () => {
+    await logout()
+  }
 
   return (
-    <div className='min-h-screen bg-white text-gray-900 relative overflow-hidden'>
+    <div className='min-h-screen bg-gray-100 text-gray-900 relative overflow-hidden'>
       <div className='relative z-10 container mx-auto px-4 py-10'>
         {/* Header and Tabs on the same line */}
         <div className='flex items-center justify-between mb-8 flex-wrap gap-4'>
@@ -48,10 +54,13 @@ export const AdminLandingPage = () => {
             
             {/* Logout Button */}
             <button
-              className='px-6 py-2 rounded-lg transition-colors duration-200 text-sm font-medium bg-red-600 text-white hover:bg-red-700'
-              onClick={() => console.log('Logout clicked')}
+              className={`px-6 py-2 rounded-lg transition-colors duration-200 text-sm font-medium bg-red-600 text-white hover:bg-red-700 ${
+                loading ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
+              onClick={handleLogout}
+              disabled={loading}
             >
-              Logout
+              {loading ? 'Logging out...' : 'Logout'}
             </button>
           </div>
         </div>
@@ -60,7 +69,7 @@ export const AdminLandingPage = () => {
         {activeTab === 'stories' && <AdminStories />}
         {activeTab === 'shows' && <AdminShows />}
         {activeTab === 'presenters' && <AdminPresenters />}
-        {activeTab === 'blogs' && <AdminBlogs />}  {/* ✅ ADD THIS */}
+        {activeTab === 'blogs' && <AdminBlogs />}
       </div>
     </div>
   )

@@ -24,7 +24,6 @@ export  const useUserStore = create((set,get) => ({
     }
   },
 
- 
   login: async (email,password) => {
     set({loading: true})
 
@@ -34,6 +33,19 @@ export  const useUserStore = create((set,get) => ({
     } catch (error) {
       set({loading: false})
       toast.error(error.response.data.message || 'An Error Occured')
+    }
+  },
+
+  // ADD THIS LOGOUT FUNCTION
+  logout: async () => {
+    set({loading: true})
+    try {
+      await axios.post('/auth/admin/logout')
+      set({user: null, loading: false})
+      toast.success('Logged out successfully')
+    } catch (error) {
+      set({loading: false})
+      toast.error(error.response?.data?.message || 'Error logging out')
     }
   },
 
