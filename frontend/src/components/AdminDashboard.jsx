@@ -87,14 +87,6 @@ const AdminDashboard = () => {
   const showsWithoutHost = shows.filter((s) => !s.host).length
   const breakingCount = news.filter((n) => n.isBreaking).length
 
-  const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('en-GB', {
-      day: 'numeric',
-      month: 'short',
-      year: 'numeric'
-    })
-  }
-
   const getTodayShows = () => {
     const today = new Date().toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase()
     return shows.filter(show => {
@@ -121,10 +113,10 @@ const AdminDashboard = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        <h2 className='text-xl font-semibold text-gray-900'>
+        <h2 className='text-2xl font-semibold text-gray-900'>
           Welcome back{user?.email ? `, ${user.email.split('@')[0]}` : ''}
         </h2>
-        <p className='text-sm text-gray-500 mt-1'>
+        <p className='text-base text-gray-500 mt-1'>
           Here is what is happening across KOCH FM right now.
         </p>
       </motion.div>
@@ -137,10 +129,10 @@ const AdminDashboard = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: index * 0.05 }}
-            className='bg-gray-50 border border-gray-200 rounded-lg p-5'
+            className='bg-white border border-gray-200 rounded-lg p-6'
           >
-            <p className='text-sm text-gray-500'>{stat.label}</p>
-            <p className='text-3xl font-bold text-gray-900 mt-1'>
+            <p className='text-base text-gray-500'>{stat.label}</p>
+            <p className='text-4xl font-bold text-gray-900 mt-1'>
               {isLoading ? '—' : stat.value}
             </p>
           </motion.div>
@@ -149,25 +141,25 @@ const AdminDashboard = () => {
 
       {/* Today's schedule */}
       <div className='bg-white border border-gray-200 rounded-lg'>
-        <div className='px-5 py-4 border-b border-gray-200'>
-          <h3 className='font-semibold text-gray-900'>Today's Schedule</h3>
+        <div className='px-6 py-5 border-b border-gray-200'>
+          <h3 className='text-lg font-semibold text-gray-900'>Today's Schedule</h3>
         </div>
         <div className='divide-y divide-gray-100'>
           {isLoading && (
-            <p className='px-5 py-6 text-sm text-gray-500'>Loading schedule...</p>
+            <p className='px-6 py-6 text-base text-gray-500'>Loading schedule...</p>
           )}
           {!isLoading && todayShows.length === 0 && (
-            <p className='px-5 py-6 text-sm text-gray-500'>No shows scheduled for today.</p>
+            <p className='px-6 py-6 text-base text-gray-500'>No shows scheduled for today.</p>
           )}
           {!isLoading && todayShows.map((show) => (
-            <div key={show._id} className='px-5 py-3 flex items-center justify-between'>
+            <div key={show._id} className='px-6 py-4 flex items-center justify-between'>
               <div>
-                <p className='text-sm font-medium text-gray-900'>{show.title}</p>
-                <p className='text-xs text-gray-500 mt-0.5'>
+                <p className='text-base font-medium text-gray-900'>{show.title}</p>
+                <p className='text-sm text-gray-500 mt-0.5'>
                   {show.host?.name || 'No host assigned'} • {show.startTime} - {show.endTime}
                 </p>
               </div>
-              <span className='text-xs text-gray-400'>
+              <span className='text-sm text-gray-400'>
                 {show.scheduleType === 'single' ? 'Weekly' : 'Weekday'}
               </span>
             </div>
@@ -178,30 +170,30 @@ const AdminDashboard = () => {
       <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
         {/* Recent activity */}
         <div className='lg:col-span-2 bg-white border border-gray-200 rounded-lg'>
-          <div className='px-5 py-4 border-b border-gray-200'>
-            <h3 className='font-semibold text-gray-900'>Recent Activity</h3>
+          <div className='px-6 py-5 border-b border-gray-200'>
+            <h3 className='text-lg font-semibold text-gray-900'>Recent Activity</h3>
           </div>
 
           <div className='divide-y divide-gray-100'>
             {isLoading && (
-              <p className='px-5 py-6 text-sm text-gray-500'>Loading activity...</p>
+              <p className='px-6 py-6 text-base text-gray-500'>Loading activity...</p>
             )}
 
             {!isLoading && recentActivity.length === 0 && (
-              <p className='px-5 py-6 text-sm text-gray-500'>No activity yet.</p>
+              <p className='px-6 py-6 text-base text-gray-500'>No activity yet.</p>
             )}
 
             {!isLoading &&
               recentActivity.map((item) => (
                 <div
                   key={`${item.type}-${item.id}`}
-                  className='px-5 py-3 flex items-center justify-between gap-4'
+                  className='px-6 py-4 flex items-center justify-between gap-4'
                 >
                   <div className='min-w-0'>
-                    <p className='text-sm text-gray-900 truncate'>{item.title}</p>
-                    <p className='text-xs text-gray-500 mt-0.5'>{item.type}</p>
+                    <p className='text-base text-gray-900 truncate'>{item.title}</p>
+                    <p className='text-sm text-gray-500 mt-0.5'>{item.type}</p>
                   </div>
-                  <span className='text-xs text-gray-400 whitespace-nowrap'>
+                  <span className='text-sm text-gray-400 whitespace-nowrap'>
                     {timeAgo(item.createdAt)}
                   </span>
                 </div>
@@ -212,17 +204,17 @@ const AdminDashboard = () => {
         {/* Right column */}
         <div className='space-y-6'>
           {/* Content health */}
-          <div className='bg-white border border-gray-200 rounded-lg p-5'>
-            <h3 className='font-semibold text-gray-900 mb-4'>Content Health</h3>
-            <div className='space-y-3 text-sm'>
+          <div className='bg-white border border-gray-200 rounded-lg p-6'>
+            <h3 className='text-lg font-semibold text-gray-900 mb-4'>Content Health</h3>
+            <div className='space-y-3'>
               <div className='flex items-center justify-between'>
-                <span className='text-gray-600'>Breaking news live</span>
-                <span className='font-medium text-gray-900'>{breakingCount}</span>
+                <span className='text-base text-gray-600'>Breaking news live</span>
+                <span className='text-base font-medium text-gray-900'>{breakingCount}</span>
               </div>
               <div className='flex items-center justify-between'>
-                <span className='text-gray-600'>Shows missing a host</span>
+                <span className='text-base text-gray-600'>Shows missing a host</span>
                 <span
-                  className={`font-medium ${
+                  className={`text-base font-medium ${
                     showsWithoutHost > 0 ? 'text-red-600' : 'text-gray-900'
                   }`}
                 >
@@ -230,12 +222,12 @@ const AdminDashboard = () => {
                 </span>
               </div>
               <div className='flex items-center justify-between'>
-                <span className='text-gray-600'>Total presenters</span>
-                <span className='font-medium text-gray-900'>{presenters.length}</span>
+                <span className='text-base text-gray-600'>Total presenters</span>
+                <span className='text-base font-medium text-gray-900'>{presenters.length}</span>
               </div>
               <div className='flex items-center justify-between'>
-                <span className='text-gray-600'>Total content items</span>
-                <span className='font-medium text-gray-900'>
+                <span className='text-base text-gray-600'>Total content items</span>
+                <span className='text-base font-medium text-gray-900'>
                   {news.length + shows.length + blogs.length}
                 </span>
               </div>
@@ -243,24 +235,24 @@ const AdminDashboard = () => {
           </div>
 
           {/* Quick stats */}
-          <div className='bg-white border border-gray-200 rounded-lg p-5'>
-            <h3 className='font-semibold text-gray-900 mb-4'>Quick Stats</h3>
-            <div className='space-y-3 text-sm'>
+          <div className='bg-white border border-gray-200 rounded-lg p-6'>
+            <h3 className='text-lg font-semibold text-gray-900 mb-4'>Quick Stats</h3>
+            <div className='space-y-3'>
               <div className='flex items-center justify-between'>
-                <span className='text-gray-600'>Latest story</span>
-                <span className='text-gray-900 font-medium'>
+                <span className='text-base text-gray-600'>Latest story</span>
+                <span className='text-base font-medium text-gray-900'>
                   {news.length > 0 ? timeAgo(news[0].createdAt) : '—'}
                 </span>
               </div>
               <div className='flex items-center justify-between'>
-                <span className='text-gray-600'>Latest blog</span>
-                <span className='text-gray-900 font-medium'>
+                <span className='text-base text-gray-600'>Latest blog</span>
+                <span className='text-base font-medium text-gray-900'>
                   {blogs.length > 0 ? timeAgo(blogs[0].createdAt) : '—'}
                 </span>
               </div>
               <div className='flex items-center justify-between'>
-                <span className='text-gray-600'>Active shows</span>
-                <span className='text-gray-900 font-medium'>
+                <span className='text-base text-gray-600'>Active shows</span>
+                <span className='text-base font-medium text-gray-900'>
                   {shows.filter(s => s.scheduleType).length}
                 </span>
               </div>
