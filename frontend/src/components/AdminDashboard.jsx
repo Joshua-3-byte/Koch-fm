@@ -1,206 +1,375 @@
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useNewsStore } from '../stores/useNewsStore'
 import { useShowStore } from '../stores/useShowStore'
 import { usePresenterStore } from '../stores/usePresenterStore'
 import { useBlogStore } from '../stores/useBlogStore'
-import { useUserStore } from '../stores/useUserStore'
-
-const timeAgo = (dateString) => {
-  const seconds = Math.floor((Date.now() - new Date(dateString)) / 1000)
-
-  if (seconds < 60) return 'just now'
-
-  const minutes = Math.floor(seconds / 60)
-  if (minutes < 60) return `${minutes}m ago`
-
-  const hours = Math.floor(minutes / 60)
-  if (hours < 24) return `${hours}h ago`
-
-  const days = Math.floor(hours / 24)
-  if (days < 7) return `${days}d ago`
-
-  return new Date(dateString).toLocaleDateString('en-GB', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric'
-  })
-}
+import { 
+  FiBook, 
+  FiRadio, 
+  FiUsers, 
+  FiFileText,
+  FiCalendar,
+  FiClock,
+  FiArrowUpRight,
+  FiArrowDownRight,
+  FiEye,
+  FiPlus,
+  FiTrendingUp
+} from 'react-icons/fi'
 
 const AdminDashboard = () => {
-  const { user } = useUserStore()
+  const { news, fetchNews, loading: newsLoading } = useNewsStore()
+  const { shows, fetchShows, loading: showsLoading } = useShowStore()
+  const { presenters, fetchPresenters, loading: presentersLoading } = usePresenterStore()
+  const { blogs, fetchBlogs, loading: blogsLoading } = useBlogStore()
 
-  const { news, loading: newsLoading, fetchNews } = useNewsStore()
-  const { shows, loading: showsLoading, fetchShows } = useShowStore()
-  const { presenters, loading: presentersLoading, fetchPresenters } = usePresenterStore()
-  const { blogs, loading: blogsLoading, fetchBlogs } = useBlogStore()
+  const [currentTime, setCurrentTime] = useState(new Date())
 
   useEffect(() => {
-    if (news.length === 0) fetchNews()
-    if (shows.length === 0) fetchShows()
-    if (presenters.length === 0) fetchPresenters()
-    if (blogs.length === 0) fetchBlogs()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    fetchNews()
+    fetchShows()
+    fetchPresenters()
+    fetchBlogs()
   }, [])
 
-  const isLoading = newsLoading || showsLoading || presentersLoading || blogsLoading
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date())
+    }, 60000)
+    return () => clearInterval(timer)
+  }, [])
+
+  const getTodayShows = () => {
+    const today = currentTime.toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase()
+    return shows.filter(show => {
+      if (show.scheduleType === 'single') {
+        return show.dayOfWeek === today
+      } else if (show.scheduleType === 'range') {
+        const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+        const startIndex = days.indexOf(show.dayRangeStart)
+        const endIndex = days.indexOf(show.dayRangeEnd)
+        const todayIndex = days.indexOf(today)
+        return todayIndex >= startIndex && todayIndex <= endIndex
+      }
+      return false
+    }).slice(0, 4)
+  }
+
+  const todayShows = getTodayShows()
 
   const stats = [
-    { label: 'Stories', value: news.length },
-    { label: 'Shows', value: shows.length },
-    { label: 'Presenters', value: presenters.length },
-    { label: 'Blogs', value: blogs.length }
+    {
+      id: 1,
+      title: 'Total Stories',
+      value: news.length,
+      icon: FiBook,
+      color: 'from-blue-500 to-blue-600',
+      bgColor: 'bg-blue-50',
+      textColor: 'text-blue-600',
+      change: '+12',
+      changeType: 'up'
+    },
+    {
+      id: 2,
+      title: 'Active Shows',
+      value: shows.length,
+      icon: FiRadio,
+      color: 'from-red-500 to-red-600',
+      bgColor: 'bg-red-50',
+      textColor: 'text-red-600',
+      change: '+3',
+      changeType: 'up'
+    },
+    {
+      id: 3,
+      title: 'Presenters',
+      value: presenters.length,
+      icon: FiUsers,
+      color: 'from-green-500 to-green-600',
+      bgColor: 'bg-green-50',
+      textColor: 'text-green-600',
+      change: '+5',
+      changeType: 'up'
+    },
+    {
+      id: 4,
+      title: 'Blog Posts',
+      value: blogs.length,
+      icon: FiFileText,
+      color: 'from-purple-500 to-purple-600',
+      bgColor: 'bg-purple-50',
+      textColor: 'text-purple-600',
+      change: '+8',
+      changeType: 'up'
+    }
   ]
 
-  const recentActivity = useMemo(() => {
-    const items = [
-      ...news.map((n) => ({
-        id: n._id,
-        type: 'Story',
-        title: n.title,
-        createdAt: n.createdAt
-      })),
-      ...shows.map((s) => ({
-        id: s._id,
-        type: 'Show',
-        title: s.title,
-        createdAt: s.createdAt
-      })),
-      ...presenters.map((p) => ({
-        id: p._id,
-        type: 'Presenter',
-        title: p.name,
-        createdAt: p.createdAt
-      })),
-      ...blogs.map((b) => ({
-        id: b._id,
-        type: 'Blog',
-        title: b.title,
-        createdAt: b.createdAt
-      }))
-    ]
+  const getStatusColor = (status) => {
+    const statusMap = {
+      'Published': 'bg-emerald-100 text-emerald-700',
+      'Draft': 'bg-amber-100 text-amber-700',
+      'Pending': 'bg-orange-100 text-orange-700'
+    }
+    return statusMap[status] || 'bg-gray-100 text-gray-700'
+  }
 
-    return items
-      .filter((item) => item.createdAt)
-      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-      .slice(0, 8)
-  }, [news, shows, presenters, blogs])
+  const getTimeAgo = (date) => {
+    const now = new Date()
+    const past = new Date(date)
+    const diffMs = now - past
+    const diffMins = Math.floor(diffMs / 60000)
+    const diffHours = Math.floor(diffMins / 60)
+    const diffDays = Math.floor(diffHours / 24)
 
-  const showsWithoutHost = shows.filter((s) => !s.host).length
-  const breakingCount = news.filter((n) => n.isBreaking).length
+    if (diffMins < 1) return 'just now'
+    if (diffMins < 60) return `${diffMins} min ago`
+    if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`
+    if (diffDays < 7) return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`
+    return past.toLocaleDateString()
+  }
+
+  const loading = newsLoading || showsLoading || presentersLoading || blogsLoading
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600"></div>
+      </div>
+    )
+  }
 
   return (
-    <div className='space-y-8'>
-      {/* Greeting */}
-      <motion.div
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-      >
-        <h2 className='text-xl font-semibold text-gray-900'>
-          Welcome back{user?.email ? `, ${user.email.split('@')[0]}` : ''}
-        </h2>
-        <p className='text-sm text-gray-500 mt-1'>
-          Here is what is happening across KOCH FM right now.
-        </p>
-      </motion.div>
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+      className="space-y-6"
+    >
+      {/* Stats Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {stats.map((stat, index) => {
+          const Icon = stat.icon
+          return (
+            <motion.div
+              key={stat.id}
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: index * 0.08 }}
+              className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-shadow duration-200"
+            >
+              <div className="flex items-start justify-between">
+                <div className="space-y-1">
+                  <p className="text-sm font-medium text-gray-500 tracking-wide uppercase">
+                    {stat.title}
+                  </p>
+                  <p className="text-3xl font-bold text-gray-900 tracking-tight">
+                    {stat.value}
+                  </p>
+                  <div className="flex items-center gap-1.5">
+                    <span className={`text-xs font-medium ${
+                      stat.changeType === 'up' ? 'text-emerald-600' : 'text-rose-600'
+                    }`}>
+                      {stat.change}%
+                    </span>
+                    {stat.changeType === 'up' ? (
+                      <FiArrowUpRight className="w-3 h-3 text-emerald-600" />
+                    ) : (
+                      <FiArrowDownRight className="w-3 h-3 text-rose-600" />
+                    )}
+                    <span className="text-xs text-gray-400">this month</span>
+                  </div>
+                </div>
+                <div className={`p-3 rounded-xl ${stat.bgColor}`}>
+                  <Icon className={`w-5 h-5 ${stat.textColor}`} />
+                </div>
+              </div>
+            </motion.div>
+          )
+        })}
+      </div>
 
-      {/* Stat cards */}
-      <div className='grid grid-cols-2 md:grid-cols-4 gap-4'>
-        {stats.map((stat, index) => (
-          <motion.div
-            key={stat.label}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: index * 0.05 }}
-            className='bg-gray-50 border border-gray-200 rounded-lg p-5'
+      {/* Quick Action Buttons */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        {[
+          { label: 'Add New Story', action: 'stories' },
+          { label: 'Create Show', action: 'shows' },
+          { label: 'Add Presenter', action: 'presenters' },
+          { label: 'Write Blog', action: 'blogs' }
+        ].map((action, index) => (
+          <motion.button
+            key={action.label}
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.3 + index * 0.08 }}
+            className="group bg-red-600 hover:bg-red-700 text-white font-medium py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-all duration-200 shadow-sm hover:shadow-md"
           >
-            <p className='text-sm text-gray-500'>{stat.label}</p>
-            <p className='text-3xl font-bold text-gray-900 mt-1'>
-              {isLoading ? '—' : stat.value}
-            </p>
-          </motion.div>
+            <FiPlus className="w-4 h-4 group-hover:rotate-90 transition-transform duration-200" />
+            <span className="text-sm">{action.label}</span>
+          </motion.button>
         ))}
       </div>
 
-      <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
-        {/* Recent activity */}
-        <div className='lg:col-span-2 bg-white border border-gray-200 rounded-lg'>
-          <div className='px-5 py-4 border-b border-gray-200'>
-            <h3 className='font-semibold text-gray-900'>Recent Activity</h3>
+      {/* Two Column Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Recent Stories */}
+        <motion.div
+          initial={{ x: -20, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ delay: 0.4 }}
+          className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden"
+        >
+          <div className="p-5 border-b border-gray-100">
+            <div className="flex items-center justify-between">
+              <h3 className="text-sm font-semibold text-gray-900 tracking-wide uppercase flex items-center gap-2">
+                <FiBook className="w-4 h-4 text-red-600" />
+                Recent Stories
+              </h3>
+              <button className="text-xs font-medium text-red-600 hover:text-red-700 transition-colors flex items-center gap-1">
+                View All
+                <FiArrowUpRight className="w-3 h-3" />
+              </button>
+            </div>
           </div>
-
-          <div className='divide-y divide-gray-100'>
-            {isLoading && (
-              <p className='px-5 py-6 text-sm text-gray-500'>Loading activity...</p>
-            )}
-
-            {!isLoading && recentActivity.length === 0 && (
-              <p className='px-5 py-6 text-sm text-gray-500'>No activity yet.</p>
-            )}
-
-            {!isLoading &&
-              recentActivity.map((item) => (
-                <div
-                  key={`${item.type}-${item.id}`}
-                  className='px-5 py-3 flex items-center justify-between gap-4'
-                >
-                  <div className='min-w-0'>
-                    <p className='text-sm text-gray-900 truncate'>{item.title}</p>
-                    <p className='text-xs text-gray-500 mt-0.5'>{item.type}</p>
+          <div className="divide-y divide-gray-50">
+            {news.slice(0, 4).map((story) => (
+              <div key={story._id} className="p-4 hover:bg-gray-50 transition-colors duration-150">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium text-gray-900 truncate">
+                      {story.title}
+                    </p>
+                    <div className="flex items-center gap-2 mt-1.5">
+                      <span className="text-xs text-gray-400 flex items-center gap-1">
+                        <FiClock className="w-3 h-3" />
+                        {getTimeAgo(story.createdAt)}
+                      </span>
+                      <span className={`text-xs px-2 py-0.5 rounded-full ${getStatusColor('Published')}`}>
+                        Published
+                      </span>
+                    </div>
                   </div>
-                  <span className='text-xs text-gray-400 whitespace-nowrap'>
-                    {timeAgo(item.createdAt)}
-                  </span>
+                  <button className="text-gray-300 hover:text-gray-600 transition-colors flex-shrink-0">
+                    <FiEye className="w-4 h-4" />
+                  </button>
                 </div>
-              ))}
+              </div>
+            ))}
+            {news.length === 0 && (
+              <div className="p-8 text-center">
+                <p className="text-sm text-gray-400">No stories yet. Create your first story!</p>
+              </div>
+            )}
           </div>
-        </div>
+        </motion.div>
 
-        {/* Right column */}
-        <div className='space-y-6'>
-          {/* Quick actions */}
-          <div className='bg-white border border-gray-200 rounded-lg p-5'>
-            <h3 className='font-semibold text-gray-900 mb-4'>Quick Actions</h3>
-            <div className='flex flex-col gap-2'>
-              <button className='w-full text-left px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm text-gray-700 transition-colors duration-200'>
-                Add a new story
-              </button>
-              <button className='w-full text-left px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm text-gray-700 transition-colors duration-200'>
-                Add a new show
-              </button>
-              <button className='w-full text-left px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm text-gray-700 transition-colors duration-200'>
-                Add a new presenter
-              </button>
-              <button className='w-full text-left px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm text-gray-700 transition-colors duration-200'>
-                Add a new blog post
+        {/* Today's Schedule */}
+        <motion.div
+          initial={{ x: 20, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden"
+        >
+          <div className="p-5 border-b border-gray-100">
+            <div className="flex items-center justify-between">
+              <h3 className="text-sm font-semibold text-gray-900 tracking-wide uppercase flex items-center gap-2">
+                <FiCalendar className="w-4 h-4 text-red-600" />
+                Today's Schedule
+              </h3>
+              <button className="text-xs font-medium text-red-600 hover:text-red-700 transition-colors flex items-center gap-1">
+                Full Schedule
+                <FiArrowUpRight className="w-3 h-3" />
               </button>
             </div>
           </div>
-
-          {/* Content health */}
-          <div className='bg-white border border-gray-200 rounded-lg p-5'>
-            <h3 className='font-semibold text-gray-900 mb-4'>Content Health</h3>
-            <div className='space-y-3 text-sm'>
-              <div className='flex items-center justify-between'>
-                <span className='text-gray-600'>Breaking news live</span>
-                <span className='font-medium text-gray-900'>{breakingCount}</span>
+          <div className="divide-y divide-gray-50">
+            {todayShows.length > 0 ? (
+              todayShows.map((show) => (
+                <div key={show._id} className="p-4 hover:bg-gray-50 transition-colors duration-150">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-red-50 flex items-center justify-center flex-shrink-0">
+                      <FiRadio className="w-4 h-4 text-red-600" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium text-gray-900 truncate">
+                        {show.title}
+                      </p>
+                      <div className="flex items-center gap-2 mt-0.5">
+                        <span className="text-xs text-gray-400 truncate">
+                          with {show.host?.name || 'Unknown Host'}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="text-right flex-shrink-0">
+                      <p className="text-sm font-semibold text-red-600">
+                        {show.startTime}
+                      </p>
+                      <p className="text-xs text-gray-400">- {show.endTime}</p>
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="p-8 text-center">
+                <p className="text-sm text-gray-400">No shows scheduled for today</p>
               </div>
-              <div className='flex items-center justify-between'>
-                <span className='text-gray-600'>Shows missing a host</span>
-                <span
-                  className={`font-medium ${
-                    showsWithoutHost > 0 ? 'text-red-600' : 'text-gray-900'
-                  }`}
-                >
-                  {showsWithoutHost}
-                </span>
-              </div>
-            </div>
+            )}
           </div>
-        </div>
+        </motion.div>
       </div>
-    </div>
+
+      {/* Bottom Stats Bar */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <motion.div
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.6 }}
+          className="bg-gradient-to-r from-red-600 to-red-700 rounded-xl p-5 text-white"
+        >
+          <p className="text-xs font-medium uppercase tracking-wider opacity-80">Total Views This Week</p>
+          <p className="text-3xl font-bold tracking-tight mt-1">12,847</p>
+          <div className="flex items-center gap-1.5 mt-2">
+            <FiTrendingUp className="w-3 h-3" />
+            <span className="text-xs font-medium opacity-90">23% from last week</span>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.65 }}
+          className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl p-5 text-white"
+        >
+          <p className="text-xs font-medium uppercase tracking-wider opacity-80">New Stories This Month</p>
+          <p className="text-3xl font-bold tracking-tight mt-1">
+            {news.filter(story => {
+              const now = new Date()
+              const created = new Date(story.createdAt)
+              return created.getMonth() === now.getMonth() && 
+                     created.getFullYear() === now.getFullYear()
+            }).length}
+          </p>
+          <div className="flex items-center gap-1.5 mt-2">
+            <FiTrendingUp className="w-3 h-3" />
+            <span className="text-xs font-medium opacity-90">Active this month</span>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.7 }}
+          className="bg-gradient-to-r from-purple-600 to-purple-700 rounded-xl p-5 text-white"
+        >
+          <p className="text-xs font-medium uppercase tracking-wider opacity-80">Total Engagement</p>
+          <p className="text-3xl font-bold tracking-tight mt-1">3,921</p>
+          <div className="flex items-center gap-1.5 mt-2">
+            <FiTrendingUp className="w-3 h-3" />
+            <span className="text-xs font-medium opacity-90">18% from last month</span>
+          </div>
+        </motion.div>
+      </div>
+    </motion.div>
   )
 }
 
