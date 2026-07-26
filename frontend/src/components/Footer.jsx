@@ -6,6 +6,14 @@ import { Phone, Mail, MapPin } from 'lucide-react'
 import logo from '../assets/logo.png'
 
 const Footer = () => {
+  // Array mapping icons, links, and accessible labels cleanly
+  const socialLinks = [
+    { Icon: FaFacebook, url: 'https://www.facebook.com/kochfmradio', label: 'Facebook' },
+    { Icon: FaXTwitter, url: 'https://x.com/Kochfmradio', label: 'Twitter' },
+    { Icon: FaInstagram, url: 'https://www.instagram.com/kochfmradio', label: 'Instagram' },
+    { Icon: FaTiktok, url: 'https://www.tiktok.com/@kochfmradio', label: 'TikTok' }
+  ];
+
   return (
     <footer className='w-full bg-red-950/95 backdrop-blur-sm border-t border-red-800 mt-12'>
       <div className='max-w-7xl mx-auto px-4 sm:px-8 lg:px-10 py-8 sm:py-12'>
@@ -41,11 +49,11 @@ const Footer = () => {
             <ul className='space-y-2 sm:space-y-3'>
               <li className='flex items-center justify-center sm:justify-start gap-2 sm:gap-3 text-gray-300 text-xs sm:text-sm'>
                 <Phone size={16} className='text-red-400 flex-shrink-0' />
-                <span>0745 608505</span>
+                <span>0790 199143</span>
               </li>
               <li className='flex items-center justify-center sm:justify-start gap-2 sm:gap-3 text-gray-300 text-xs sm:text-sm'>
                 <Mail size={16} className='text-red-400 flex-shrink-0' />
-                <span>info@kochfm.com</span>
+                <span>kochfmcommunications@gmail.com</span>
               </li>
               <li className='flex items-center justify-center sm:justify-start gap-2 sm:gap-3 text-gray-300 text-xs sm:text-sm'>
                 <MapPin size={16} className='text-red-400 flex-shrink-0' />
@@ -58,8 +66,15 @@ const Footer = () => {
           <div>
             <h3 className='text-white font-semibold text-base sm:text-lg mb-3 sm:mb-4 text-center sm:text-left'>Follow Us</h3>
             <div className='flex justify-center sm:justify-start gap-3 sm:gap-4'>
-              {[FaFacebook, FaXTwitter, FaInstagram, FaTiktok].map((Icon, index) => (
-                <a key={index} href='#' target='_blank' rel='noopener noreferrer' className='w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-red-800/50 hover:bg-red-700 flex items-center justify-center transition-colors duration-300 text-gray-300 hover:text-white'>
+              {socialLinks.map(({ Icon, url, label }, index) => (
+                <a 
+                  key={index} 
+                  href={url} 
+                  target='_blank' 
+                  rel='noopener noreferrer' 
+                  aria-label={label}
+                  className='w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-red-800/50 hover:bg-red-700 flex items-center justify-center transition-colors duration-300 text-gray-300 hover:text-white'
+                >
                   <Icon size={16} />
                 </a>
               ))}
