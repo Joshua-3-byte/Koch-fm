@@ -17,6 +17,7 @@ import ShowsPage from './pages/ShowsPage'
 import ContactPage from './pages/ContactPage'
 import BlogsPage from './pages/BlogsPage'  // ✅ ADD THIS
 import SingleBlogPage from './pages/SingleBlogPage'  // ✅ ADD THIS
+import ScrollToTop from './components/ScrollToTop'
 
 const AppContent = () => {
   const { user, checkAuth, checkingAuth } = useUserStore()
@@ -38,6 +39,8 @@ const AppContent = () => {
         isAdminRoute ? 'bg-white text-gray-900' : 'bg-red-900 text-white'
       }`}
     >
+      <ScrollToTop />
+
       {!isAdminRoute && (
         <div className='absolute inset-0 overflow-hidden'>
           <div className='absolute inset-0'>

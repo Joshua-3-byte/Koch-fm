@@ -9,12 +9,12 @@ const ContactPage = () => {
     {
       icon: <Phone size={28} className='text-red-500' />,
       title: 'Phone',
-      details: ['0745 608505']
+      details: ['0790 199143']
     },
     {
       icon: <Mail size={28} className='text-red-500' />,
       title: 'Email',
-      details: ['info@kochfm.com']
+      details: ['kochfmcommunications@gmail.com']
     },
     {
       icon: <MapPin size={28} className='text-red-500' />,
@@ -24,15 +24,15 @@ const ContactPage = () => {
     {
       icon: <Clock size={28} className='text-red-500' />,
       title: 'Working Hours',
-      details: ['Mon-Fri: 6:00 AM - 10:00 PM', 'Sat-Sun: 8:00 AM - 8:00 PM']
+      details: ['Mon-Fri: 6:00 AM - 10:00 PM']
     }
   ]
 
   const socialLinks = [
-    { icon: <FaFacebook size={24} />, label: 'Facebook', href: 'https://facebook.com' },
-    { icon: <FaXTwitter size={24} />, label: 'Twitter', href: 'https://twitter.com' },
-    { icon: <FaInstagram size={24} />, label: 'Instagram', href: 'https://instagram.com' },
-    { icon: <FaTiktok size={24} />, label: 'TikTok', href: 'https://tiktok.com' }
+    { icon: <FaFacebook size={24} />, label: 'Facebook', href: 'https://www.facebook.com/kochfmradio' },
+    { icon: <FaXTwitter size={24} />, label: 'Twitter', href: 'https://x.com/Kochfmradio' },
+    { icon: <FaInstagram size={24} />, label: 'Instagram', href: 'https://www.instagram.com/kochfmradio' },
+    { icon: <FaTiktok size={24} />, label: 'TikTok', href: 'https://www.tiktok.com/@kochfmradio' }
   ]
 
   return (
