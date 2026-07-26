@@ -284,13 +284,13 @@ const AboutPage = () => {
               <Phone size={20} /> Contact Us
             </Link>
             <a 
-              href='kochfmcommunications@gmail.com' 
+              href='/' 
               className='px-6 py-3 bg-red-700/50 text-white rounded-lg font-semibold hover:bg-red-600 transition-colors duration-300 flex items-center gap-2 border border-red-500/30'
             >
               <Mail size={20} /> Email Us
             </a>
             <a 
-              href='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3973.277423627588!2d36.879960974952695!3d-1.2565315355942852!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f1551dbc26ced%3A0x69d37dd92cf2ea39!2sLandmark%20plaza!5e1!3m2!1sen!2ske!4v1784827245204!5m2!1sen!2ske' 
+              href='/' 
               className='px-6 py-3 bg-red-700/50 text-white rounded-lg font-semibold hover:bg-red-600 transition-colors duration-300 flex items-center gap-2 border border-red-500/30'
             >
               <MapPin size={20} /> Visit Us
