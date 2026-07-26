@@ -1,10 +1,10 @@
 import React, { useEffect, useMemo } from 'react'
 import { motion } from 'framer-motion'
-import { useNewsStore } from '../store/useNewsStore'
-import { useShowStore } from '../store/useShowStore'
-import { usePresenterStore } from '../store/usePresenterStore'
-import { useBlogStore } from '../store/useBlogStore'
-import { useUserStore } from '../store/useUserStore'
+import { useNewsStore } from '../stores/useNewsStore'
+import { useShowStore } from '../stores/useShowStore'
+import { usePresenterStore } from '../stores/usePresenterStore'
+import { useBlogStore } from '../stores/useBlogStore'
+import { useUserStore } from '../stores/useUserStore'
 
 const timeAgo = (dateString) => {
   const seconds = Math.floor((Date.now() - new Date(dateString)) / 1000)
