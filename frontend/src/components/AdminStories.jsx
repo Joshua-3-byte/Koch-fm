@@ -178,6 +178,7 @@ const AdminStories = () => {
                   <option value='business'>Business</option>
                   <option value='technology'>Technology</option>
                   <option value='world'>World</option>
+                  <option value='news'>News</option>
                 </select>
               </div>
             </div>

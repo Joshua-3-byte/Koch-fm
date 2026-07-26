@@ -11,7 +11,7 @@ const NewsSection = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 4
 
-  const categories = ['all', 'politics', 'sports', 'business', 'technology', 'world']
+  const categories = ['all', 'politics', 'sports', 'business', 'technology', 'world', 'news']
 
   useEffect(() => {
     fetchNews()

@@ -13,7 +13,7 @@ title: {
 tag: {
   type: String,
   required: true,
-  enum: ['politics', 'sports', 'business', 'technology', 'world'],
+  enum: ['politics', 'sports', 'business', 'technology', 'world', 'news'],
   lowercase: true,
   trim: true
 },
