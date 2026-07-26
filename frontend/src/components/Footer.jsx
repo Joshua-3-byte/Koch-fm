@@ -6,12 +6,21 @@ import { Phone, Mail, MapPin } from 'lucide-react'
 import logo from '../assets/logo.png'
 
 const Footer = () => {
-  // Array mapping icons, links, and accessible labels cleanly
+  
   const socialLinks = [
     { Icon: FaFacebook, url: 'https://www.facebook.com/kochfmradio', label: 'Facebook' },
     { Icon: FaXTwitter, url: 'https://x.com/Kochfmradio', label: 'Twitter' },
     { Icon: FaInstagram, url: 'https://www.instagram.com/kochfmradio', label: 'Instagram' },
     { Icon: FaTiktok, url: 'https://www.tiktok.com/@kochfmradio', label: 'TikTok' }
+  ];
+
+  
+  const quickLinks = [
+    { name: 'Home', path: '/' },
+    { name: 'About', path: '/about' },
+    { name: 'Shows', path: '/shows' },
+    { name: 'News', path: '/news' },
+    { name: 'Contact', path: '/contact' }
   ];
 
   return (
@@ -33,10 +42,10 @@ const Footer = () => {
           <div>
             <h3 className='text-white font-semibold text-base sm:text-lg mb-3 sm:mb-4 text-center sm:text-left'>Quick Links</h3>
             <ul className='space-y-1.5 sm:space-y-2 text-center sm:text-left'>
-              {['Home', 'About', 'Shows', 'News', 'Contact'].map((item) => (
-                <li key={item}>
-                  <Link to='/' className='text-gray-300 hover:text-red-400 transition-colors duration-200 text-xs sm:text-sm'>
-                    {item}
+              {quickLinks.map((item) => (
+                <li key={item.name}>
+                  <Link to={item.path} className='text-gray-300 hover:text-red-400 transition-colors duration-200 text-xs sm:text-sm'>
+                    {item.name}
                   </Link>
                 </li>
               ))}
