@@ -9,10 +9,11 @@ import {
   Music, 
   Heart, 
   Shield, 
-  Radio
+  Radio,
+  GraduationCap
 } from 'lucide-react'
 
-// Your images from public folder
+// images from public folder
 const heroImages = [
   '/about1.jpg',
   '/about2.jpg',
@@ -33,36 +34,30 @@ const AboutPage = () => {
     return () => clearInterval(interval)
   }, [])
 
-  const programs = [
-    {
-      icon: <Shield size={28} />,
-      name: 'Mwanga wa Koch',
-      description: 'Governance, leadership & civic engagement',
-      color: 'bg-red-600'
-    },
-    {
-      icon: <Heart size={28} />,
-      name: 'Mid Morning',
-      description: 'Health, sanitation & wellness',
-      color: 'bg-red-500'
-    },
-    {
-      icon: <Music size={28} />,
-      name: 'Wasanii Maskani',
-      description: 'Music & talent from local artists',
-      color: 'bg-red-600'
-    },
+  const programmaticAreas = [
     {
       icon: <Radio size={28} />,
-      name: 'Mabeshte',
-      description: 'Reggae music for peace & unity',
-      color: 'bg-red-500'
+      title: 'Radio Broadcasting',
+      tagline: 'Live and pre-recorded programming that informs, educates and engages',
+      description: 'Talk shows, interviews, documentaries, music and news that give community members, experts and duty bearers a shared platform — extended onto social media and digital platforms so the conversation continues beyond the airwaves.',
+      color: 'bg-red-600',
+      tags: ['Governance & Civic Participation', 'Health & Reproductive Health', 'Entrepreneurship & Livelihoods', 'WASH', 'Gender-Based Violence', 'Youth & Women Empowerment', 'Human Rights']
     },
     {
       icon: <Users size={28} />,
-      name: 'Watoto Amkeni',
-      description: "Children's rights & development",
-      color: 'bg-red-600'
+      title: 'Community Outreach & Engagement',
+      tagline: 'Taking conversations from the airwaves into the community',
+      description: 'Community forums, dialogues, focus group discussions and stakeholder engagements that bring together residents, local leaders, government and civil society to identify challenges and shape solutions together.',
+      color: 'bg-red-500',
+      tags: ['Community Forums', 'Public Dialogues', 'Focus Group Discussions', 'Stakeholder Engagement']
+    },
+    {
+      icon: <GraduationCap size={28} />,
+      title: 'Youth Empowerment, Training & Skills Development',
+      tagline: 'Building the next generation of community media practitioners',
+      description: 'Internships, attachments and hands-on training in radio production, news gathering, scriptwriting and digital content creation — a pathway from training into volunteering and, ultimately, the Koch FM team.',
+      color: 'bg-red-600',
+      tags: ['Radio Production', 'News Gathering & Reporting', 'Scriptwriting & Presentation', 'Digital Content Creation']
     }
   ]
 
@@ -157,19 +152,19 @@ const AboutPage = () => {
               </p>
               <ul className='space-y-2 text-gray-600'>
                 <li className='flex items-start gap-3'>
-                  <span className='text-red-500 mt-1'>✓</span>
+                  <span className='text-red-500 mt-1 font-bold text-lg leading-none'>•</span>
                   <span>Share information relevant to local residents</span>
                 </li>
                 <li className='flex items-start gap-3'>
-                  <span className='text-red-500 mt-1'>✓</span>
+                  <span className='text-red-500 mt-1 font-bold text-lg leading-none'>•</span>
                   <span>Promote education and public awareness</span>
                 </li>
                 <li className='flex items-start gap-3'>
-                  <span className='text-red-500 mt-1'>✓</span>
+                  <span className='text-red-500 mt-1 font-bold text-lg leading-none'>•</span>
                   <span>Encourage dialogue on social, economic & governance issues</span>
                 </li>
                 <li className='flex items-start gap-3'>
-                  <span className='text-red-500 mt-1'>✓</span>
+                  <span className='text-red-500 mt-1 font-bold text-lg leading-none'>•</span>
                   <span>Give a voice to young people and underrepresented community members</span>
                 </li>
               </ul>
@@ -185,19 +180,19 @@ const AboutPage = () => {
               </p>
               <ul className='space-y-2 text-gray-600'>
                 <li className='flex items-start gap-3'>
-                  <span className='text-red-500 mt-1'>✓</span>
+                  <span className='text-red-500 mt-1 font-bold text-lg leading-none'>•</span>
                   <span>Encouraging meaningful participation in societal processes</span>
                 </li>
                 <li className='flex items-start gap-3'>
-                  <span className='text-red-500 mt-1'>✓</span>
+                  <span className='text-red-500 mt-1 font-bold text-lg leading-none'>•</span>
                   <span>Educating and informing the community</span>
                 </li>
                 <li className='flex items-start gap-3'>
-                  <span className='text-red-500 mt-1'>✓</span>
+                  <span className='text-red-500 mt-1 font-bold text-lg leading-none'>•</span>
                   <span>Entertaining responsibly</span>
                 </li>
                 <li className='flex items-start gap-3'>
-                  <span className='text-red-500 mt-1'>✓</span>
+                  <span className='text-red-500 mt-1 font-bold text-lg leading-none'>•</span>
                   <span>Organizing and mobilizing communities</span>
                 </li>
               </ul>
@@ -209,25 +204,48 @@ const AboutPage = () => {
       {/* Core Programs Section */}
       <section className='py-16 sm:py-20'>
         <div className='max-w-7xl mx-auto px-4'>
-          <div className='text-center mb-12'>
+          <div className='text-center mb-14'>
             <h2 className='text-3xl sm:text-4xl font-bold text-gray-900 flex items-center justify-center gap-3'>
-              
               Our Core Programs
             </h2>
             <div className='w-20 h-1 bg-red-600 mx-auto mt-4'></div>
+            <p className='text-gray-600 max-w-2xl mx-auto mt-4'>
+              Three interconnected areas that carry Koch FM's work from the studio, into the community, and back again.
+            </p>
           </div>
 
-          <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4'>
-            {programs.map((program, index) => (
+          <div className='space-y-6'>
+            {programmaticAreas.map((area, index) => (
               <div 
                 key={index}
-                className='bg-white rounded-xl border border-gray-200 p-6 text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1'
+                className='bg-white rounded-2xl border border-gray-200 p-6 sm:p-8 hover:shadow-lg transition-shadow duration-300'
               >
-                <div className={`w-16 h-16 rounded-full ${program.color} flex items-center justify-center mx-auto mb-4 text-white`}>
-                  {program.icon}
+                <div className='flex flex-col sm:flex-row gap-6'>
+                  <div className='flex sm:flex-col items-center sm:items-start gap-4 sm:gap-3 sm:w-56 shrink-0'>
+                    <div className={`w-14 h-14 rounded-full ${area.color} flex items-center justify-center text-white shrink-0`}>
+                      {area.icon}
+                    </div>
+                    <div>
+                      <h4 className='font-bold text-gray-900 text-lg leading-snug'>{area.title}</h4>
+                    </div>
+                  </div>
+                  <div className='flex-1'>
+                    <p className='text-red-600 text-sm font-semibold mb-2'>{area.tagline}</p>
+                    <p className='text-gray-600 text-sm sm:text-base leading-relaxed mb-4'>
+                      {area.description}
+                    </p>
+                    <div className='flex flex-wrap gap-2'>
+                      {area.tags.map((tag, tagIndex) => (
+                        <span 
+                          key={tagIndex} 
+                          className='px-3 py-1 bg-red-50 text-red-700 text-xs font-medium rounded-full border border-red-200'
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-                <h4 className='font-bold text-gray-900 text-sm mb-1'>{program.name}</h4>
-                <p className='text-gray-500 text-xs'>{program.description}</p>
               </div>
             ))}
           </div>
