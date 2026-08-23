@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { 
   Mic, 
   MapPin, 
@@ -10,61 +10,112 @@ import {
   Heart, 
   Shield, 
   Radio,
-  GraduationCap
-} from 'lucide-react'
+  RadioTower,
+  MessageCircle,
+  Users as UsersIcon,
+  Award,
+  Podcast
+} from 'lucide-react';
 
 // Your images from public folder
 const heroImages = [
   '/about1.jpg',
   '/about2.jpg',
   '/about3.jpg'
-]
+];
 
 const AboutPage = () => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   // Auto-slide every 5 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => 
         prevIndex === heroImages.length - 1 ? 0 : prevIndex + 1
-      )
-    }, 5000)
+      );
+    }, 5000);
 
-    return () => clearInterval(interval)
-  }, [])
+    return () => clearInterval(interval);
+  }, []);
 
-  const programmaticAreas = [
+  // Legacy programs (kept for reference but not used in the new creative layout)
+  const legacyPrograms = [
+    {
+      icon: <Shield size={28} />,
+      name: 'Mwanga wa Koch',
+      description: 'Governance, leadership & civic engagement',
+      color: 'bg-red-600'
+    },
+    {
+      icon: <Heart size={28} />,
+      name: 'Mid Morning',
+      description: 'Health, sanitation & wellness',
+      color: 'bg-red-500'
+    },
+    {
+      icon: <Music size={28} />,
+      name: 'Wasanii Maskani',
+      description: 'Music & talent from local artists',
+      color: 'bg-red-600'
+    },
     {
       icon: <Radio size={28} />,
-      title: 'Radio Broadcasting',
-      tagline: 'Live and pre-recorded programming that informs, educates and engages',
-      description: 'Talk shows, interviews, documentaries, music and news that give community members, experts and duty bearers a shared platform — extended onto social media and digital platforms so the conversation continues beyond the airwaves.',
-      color: 'bg-red-600',
-      tags: ['Governance & Civic Participation', 'Health & Reproductive Health', 'Entrepreneurship & Livelihoods', 'WASH', 'Gender-Based Violence', 'Youth & Women Empowerment', 'Human Rights']
+      name: 'Mabeshte',
+      description: 'Reggae music for peace & unity',
+      color: 'bg-red-500'
     },
     {
       icon: <Users size={28} />,
-      title: 'Community Outreach & Engagement',
-      tagline: 'Taking conversations from the airwaves into the community',
-      description: 'Community forums, dialogues, focus group discussions and stakeholder engagements that bring together residents, local leaders, government and civil society to identify challenges and shape solutions together.',
-      color: 'bg-red-500',
-      tags: ['Community Forums', 'Public Dialogues', 'Focus Group Discussions', 'Stakeholder Engagement']
-    },
-    {
-      icon: <GraduationCap size={28} />,
-      title: 'Youth Empowerment, Training & Skills Development',
-      tagline: 'Building the next generation of community media practitioners',
-      description: 'Internships, attachments and hands-on training in radio production, news gathering, scriptwriting and digital content creation — a pathway from training into volunteering and, ultimately, the Koch FM team.',
-      color: 'bg-red-600',
-      tags: ['Radio Production', 'News Gathering & Reporting', 'Scriptwriting & Presentation', 'Digital Content Creation']
+      name: 'Watoto Amkeni',
+      description: "Children's rights & development",
+      color: 'bg-red-600'
     }
-  ]
+  ];
 
   const communities = [
     'Korogocho', 'Kariobangi', 'Huruma', 'Mathare',
     'Babadogo', 'Dandora', 
-  ]
+  ];
+
+  // New programmatic areas data for creative display
+  const programmaticAreas = [
+    {
+      title: 'Radio Broadcasting',
+      icon: <Podcast size={32} className="text-red-600" />,
+      description: 'The heart of Koch FM – producing live and pre-recorded programmes to inform, educate, entertain and engage the community.',
+      highlights: [
+        'Live talk shows, interviews, documentaries & music programmes',
+        'Governance, health, entrepreneurship & human rights focus',
+        'Community-driven content & public service announcements'
+      ],
+      color: 'from-red-50 to-red-100',
+      borderColor: 'border-red-200'
+    },
+    {
+      title: 'Community Outreach & Engagement',
+      icon: <MessageCircle size={32} className="text-red-600" />,
+      description: 'Bringing conversations from the airwaves into the community – and community experiences back to the airwaves.',
+      highlights: [
+        'Community forums, dialogues & focus group discussions',
+        'Public awareness activities & stakeholder engagements',
+        'Connecting people with services, institutions & opportunities'
+      ],
+      color: 'from-red-50 to-orange-50',
+      borderColor: 'border-orange-200'
+    },
+    {
+      title: 'Youth Empowerment, Training & Skills Development',
+      icon: <Award size={32} className="text-red-600" />,
+      description: 'Building a generation of skilled, confident and socially responsible young media practitioners.',
+      highlights: [
+        'Internships, attachments & practical training opportunities',
+        'Hands-on experience in radio production & digital content',
+        'Pathway from training to volunteering and community service'
+      ],
+      color: 'from-red-50 to-rose-50',
+      borderColor: 'border-rose-200'
+    }
+  ];
 
   return (
     <div className='w-full bg-gray-100 min-h-screen'>
@@ -152,19 +203,19 @@ const AboutPage = () => {
               </p>
               <ul className='space-y-2 text-gray-600'>
                 <li className='flex items-start gap-3'>
-                  <span className='text-red-500 mt-1 font-bold text-lg leading-none'>•</span>
+                  <span className='text-red-500 mt-1 font-bold text-lg'>•</span>
                   <span>Share information relevant to local residents</span>
                 </li>
                 <li className='flex items-start gap-3'>
-                  <span className='text-red-500 mt-1 font-bold text-lg leading-none'>•</span>
+                  <span className='text-red-500 mt-1 font-bold text-lg'>•</span>
                   <span>Promote education and public awareness</span>
                 </li>
                 <li className='flex items-start gap-3'>
-                  <span className='text-red-500 mt-1 font-bold text-lg leading-none'>•</span>
+                  <span className='text-red-500 mt-1 font-bold text-lg'>•</span>
                   <span>Encourage dialogue on social, economic & governance issues</span>
                 </li>
                 <li className='flex items-start gap-3'>
-                  <span className='text-red-500 mt-1 font-bold text-lg leading-none'>•</span>
+                  <span className='text-red-500 mt-1 font-bold text-lg'>•</span>
                   <span>Give a voice to young people and underrepresented community members</span>
                 </li>
               </ul>
@@ -180,19 +231,19 @@ const AboutPage = () => {
               </p>
               <ul className='space-y-2 text-gray-600'>
                 <li className='flex items-start gap-3'>
-                  <span className='text-red-500 mt-1 font-bold text-lg leading-none'>•</span>
+                  <span className='text-red-500 mt-1 font-bold text-lg'>•</span>
                   <span>Encouraging meaningful participation in societal processes</span>
                 </li>
                 <li className='flex items-start gap-3'>
-                  <span className='text-red-500 mt-1 font-bold text-lg leading-none'>•</span>
+                  <span className='text-red-500 mt-1 font-bold text-lg'>•</span>
                   <span>Educating and informing the community</span>
                 </li>
                 <li className='flex items-start gap-3'>
-                  <span className='text-red-500 mt-1 font-bold text-lg leading-none'>•</span>
+                  <span className='text-red-500 mt-1 font-bold text-lg'>•</span>
                   <span>Entertaining responsibly</span>
                 </li>
                 <li className='flex items-start gap-3'>
-                  <span className='text-red-500 mt-1 font-bold text-lg leading-none'>•</span>
+                  <span className='text-red-500 mt-1 font-bold text-lg'>•</span>
                   <span>Organizing and mobilizing communities</span>
                 </li>
               </ul>
@@ -201,53 +252,61 @@ const AboutPage = () => {
         </div> 
       </section>
 
-      {/* Core Programs Section */}
-      <section className='py-16 sm:py-20'>
+      {/* Core Programs Section - Creative New Layout */}
+      <section className='py-16 sm:py-20 bg-white'>
         <div className='max-w-7xl mx-auto px-4'>
-          <div className='text-center mb-14'>
+          <div className='text-center mb-12'>
             <h2 className='text-3xl sm:text-4xl font-bold text-gray-900 flex items-center justify-center gap-3'>
-              Our Core Programs
+              Our Programmatic Areas
             </h2>
             <div className='w-20 h-1 bg-red-600 mx-auto mt-4'></div>
-            <p className='text-gray-600 max-w-2xl mx-auto mt-4'>
-              Three interconnected areas that carry Koch FM's work from the studio, into the community, and back again.
+            <p className='text-gray-600 mt-4 max-w-2xl mx-auto'>
+              Koch FM uses community media as a platform for information, education, dialogue, empowerment and community action.
             </p>
           </div>
 
-          <div className='space-y-6'>
+          {/* Creative Cards for Programmatic Areas */}
+          <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
             {programmaticAreas.map((area, index) => (
               <div 
                 key={index}
-                className='bg-white rounded-2xl border border-gray-200 p-6 sm:p-8 hover:shadow-lg transition-shadow duration-300'
+                className={`bg-gradient-to-br ${area.color} rounded-2xl p-6 border ${area.borderColor} hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col h-full`}
               >
-                <div className='flex flex-col sm:flex-row gap-6'>
-                  <div className='flex sm:flex-col items-center sm:items-start gap-4 sm:gap-3 sm:w-56 shrink-0'>
-                    <div className={`w-14 h-14 rounded-full ${area.color} flex items-center justify-center text-white shrink-0`}>
-                      {area.icon}
-                    </div>
-                    <div>
-                      <h4 className='font-bold text-gray-900 text-lg leading-snug'>{area.title}</h4>
-                    </div>
+                <div className='flex items-center gap-3 mb-4'>
+                  <div className='p-3 bg-white rounded-full shadow-sm'>
+                    {area.icon}
                   </div>
-                  <div className='flex-1'>
-                    <p className='text-red-600 text-sm font-semibold mb-2'>{area.tagline}</p>
-                    <p className='text-gray-600 text-sm sm:text-base leading-relaxed mb-4'>
-                      {area.description}
-                    </p>
-                    <div className='flex flex-wrap gap-2'>
-                      {area.tags.map((tag, tagIndex) => (
-                        <span 
-                          key={tagIndex} 
-                          className='px-3 py-1 bg-red-50 text-red-700 text-xs font-medium rounded-full border border-red-200'
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
+                  <h3 className='text-xl font-bold text-gray-900'>{area.title}</h3>
+                </div>
+                <p className='text-gray-700 text-sm leading-relaxed mb-4 flex-grow'>
+                  {area.description}
+                </p>
+                <div className='mt-auto'>
+                  <div className='h-px bg-red-200/50 w-full mb-3'></div>
+                  <ul className='space-y-2'>
+                    {area.highlights.map((highlight, idx) => (
+                      <li key={idx} className='flex items-start gap-2 text-sm text-gray-700'>
+                        <span className='text-red-500 font-bold text-base leading-tight'>•</span>
+                        <span>{highlight}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* Additional context: our approach */}
+          <div className='mt-12 bg-gray-50 rounded-2xl p-6 border border-gray-200 max-w-4xl mx-auto'>
+            <div className='flex items-center gap-3 mb-2'>
+              <UsersIcon size={24} className='text-red-600' />
+              <h4 className='font-bold text-gray-900'>Our Approach</h4>
+            </div>
+            <p className='text-gray-700 text-sm leading-relaxed'>
+              Across all three areas, Koch FM is committed to community participation, inclusion, local ownership and practical action. 
+              We believe that when communities have access to relevant information, meaningful platforms for dialogue and opportunities 
+              to develop their skills, they are better equipped to identify solutions and participate actively in the development of their communities.
+            </p>
           </div>
         </div>
       </section>
@@ -318,7 +377,7 @@ const AboutPage = () => {
       </section>
 
     </div>
-  )
-}
+  );
+};
 
-export default AboutPage
+export default AboutPage;
