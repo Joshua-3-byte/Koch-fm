@@ -475,13 +475,14 @@ const AboutPage = () => {
 
               <div className='lg:col-span-4'>
 
-                <div className='w-12 h-1 bg-red-300 mb-6'></div>
+                
 
                 <h3 className='text-3xl sm:text-4xl font-bold leading-tight'>
                   Our
                   <span className='block text-red-200'>
                     Approach.
                   </span>
+                  
                 </h3>
 
               </div>
