@@ -10,10 +10,11 @@ import {
   Heart, 
   Shield, 
   Radio,
-  Broadcast,
-  MessageSquare,
+  RadioTower,
+  MessageCircle,
   Users as UsersIcon,
-  Award
+  Award,
+  Podcast
 } from 'lucide-react';
 
 // Your images from public folder
@@ -80,7 +81,7 @@ const AboutPage = () => {
   const programmaticAreas = [
     {
       title: 'Radio Broadcasting',
-      icon: <Broadcast size={32} className="text-red-600" />,
+      icon: <Podcast size={32} className="text-red-600" />,
       description: 'The heart of Koch FM – producing live and pre-recorded programmes to inform, educate, entertain and engage the community.',
       highlights: [
         'Live talk shows, interviews, documentaries & music programmes',
@@ -92,7 +93,7 @@ const AboutPage = () => {
     },
     {
       title: 'Community Outreach & Engagement',
-      icon: <MessageSquare size={32} className="text-red-600" />,
+      icon: <MessageCircle size={32} className="text-red-600" />,
       description: 'Bringing conversations from the airwaves into the community – and community experiences back to the airwaves.',
       highlights: [
         'Community forums, dialogues & focus group discussions',
