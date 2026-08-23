@@ -90,7 +90,7 @@ const AboutPage = () => {
         'Through our community outreach and engagement activities, we create opportunities for people to meet, share experiences, identify challenges and collectively develop solutions.',
       details: [
         'We organize and facilitate community forums, community dialogues, focus group discussions, public awareness activities, stakeholder engagements and other outreach events.',
-        'By taking conversations from the airwaves into the community—and bringing community experiences back to the airwaves—we strengthen the link between media, citizens and decision-makers.'
+        'By taking conversations from the airwaves into the community, and bringing community experiences back to the airwaves, we strengthen the link between media, citizens and decision-makers.'
       ],
       focus: [
         'Community forums and dialogues',
@@ -333,7 +333,7 @@ const AboutPage = () => {
       </section>
 
       {/* Our Programmatic Areas */}
-      <section className='py-20 sm:py-24 bg-white overflow-hidden'>
+      <section className='py-20 sm:py-24 bg-gray-200 overflow-hidden'>
 
         <div className='max-w-7xl mx-auto px-4'>
 
@@ -341,7 +341,7 @@ const AboutPage = () => {
           <div className='max-w-3xl mb-16 sm:mb-20'>
 
             <div className='flex items-center gap-4 mb-5'>
-              <div className='w-12 h-px bg-red-600'></div>
+              
 
               <span className='text-red-600 font-bold text-sm tracking-[0.2em] uppercase'>
                 What We Do
@@ -386,7 +386,7 @@ const AboutPage = () => {
                     </span>
 
                     <div className='mt-6'>
-                      <div className='w-8 h-px bg-red-600 mb-3'></div>
+                      
 
                       <span className='text-xs font-bold tracking-[0.18em] uppercase text-gray-500'>
                         Program Area
@@ -501,7 +501,7 @@ const AboutPage = () => {
                 <div className='mt-8 pt-6 border-t border-red-700/70'>
 
                   <p className='text-white font-bold text-lg sm:text-xl'>
-                    Koch FM — Mobilizing Community Action through Media.
+                    Koch FM, Mobilizing Community Action through Media.
                   </p>
 
                 </div>
