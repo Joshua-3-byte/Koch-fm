@@ -15,9 +15,10 @@ import AboutPage from './pages/AboutPage'
 import ProjectsPage from './pages/ProjectsPage'
 import ShowsPage from './pages/ShowsPage'
 import ContactPage from './pages/ContactPage'
-import BlogsPage from './pages/BlogsPage'  // ✅ ADD THIS
-import SingleBlogPage from './pages/SingleBlogPage'  // ✅ ADD THIS
+import BlogsPage from './pages/BlogsPage'
+import SingleBlogPage from './pages/SingleBlogPage'
 import ScrollToTop from './components/ScrollToTop'
+import GlobalAudioPlayer from './components/GlobalAudioPlayer'  // ✅ ADD THIS
 
 const AppContent = () => {
   const { user, checkAuth, checkingAuth } = useUserStore()
@@ -41,6 +42,9 @@ const AppContent = () => {
     >
       <ScrollToTop />
 
+      {/* ✅ ADD THE GLOBAL AUDIO PLAYER HERE - IT WILL NEVER UNMOUNT */}
+      <GlobalAudioPlayer />
+
       {!isAdminRoute && (
         <div className='absolute inset-0 overflow-hidden'>
           <div className='absolute inset-0'>
@@ -63,8 +67,8 @@ const AppContent = () => {
             <Route path='/projects' element={<ProjectsPage />} />
             <Route path='/shows' element={<ShowsPage />} />
             <Route path='/contact' element={<ContactPage />} />
-            <Route path='/blogs' element={<BlogsPage />} />  {/* ✅ ADD THIS */}
-            <Route path='/blogs/:id' element={<SingleBlogPage />} />  {/* ✅ ADD THIS */}
+            <Route path='/blogs' element={<BlogsPage />} />
+            <Route path='/blogs/:id' element={<SingleBlogPage />} />
             <Route path='/news' element={<AllNewsPage />} />
             <Route path='/news/:id' element={<SingleNewsPage />} />
             <Route path='/signup' element={<SignUpPage />} />

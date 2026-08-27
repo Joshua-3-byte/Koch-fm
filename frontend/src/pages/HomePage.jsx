@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { PhoneIcon, PlayIcon, PauseIcon } from 'lucide-react'
-import { RadioPlayer } from '../components/RadioPlayer'
+import useRadioStore from '../stores/useRadioStore'
 import VolumeControl from '../components/VolumeControl'
 import SocialIcons from '../components/SocialIcons'
 import NewsSection from '../components/NewsSection'
@@ -10,13 +10,7 @@ import { useShowStore } from '../stores/useShowStore'
 import logo from '../assets/logo.png'
 
 const HomePage = () => {
-  const {
-    audioElement,
-    isPlaying, 
-    volume,
-    togglePlay,
-    handleVolumeChange
-  } = RadioPlayer(RADIO_STREAM_URL)
+  const { isPlaying, volume, togglePlay, handleVolumeChange } = useRadioStore()
 
   const { shows, fetchShows } = useShowStore()
   const [currentShow, setCurrentShow] = useState(null)
@@ -115,8 +109,6 @@ const HomePage = () => {
 
   return (
     <div className='w-full'>
-      {audioElement}
-      
       <div className='max-w-7xl mx-auto px-4 pt-20 sm:pt-21 pb-6 mb-8 sm:mb-12 text-white'>
         <div className='rounded-2xl p-4 sm:p-6 bg-gradient-to-br from-[#3d2a2a] to-[#2a1a1a] backdrop-blur-sm relative transition-all duration-300 hover:shadow-[0_25px_70px_-15px_rgba(0,0,0,0.9)] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)]'>
           
