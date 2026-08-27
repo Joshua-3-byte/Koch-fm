@@ -1,5 +1,5 @@
-// Replace with your real stream URL on Monday
-export const RADIO_STREAM_URL = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
+// stream URL 
+export const RADIO_STREAM_URL = 'https://kochfm-atunwadigital.streamguys1.com/KochFM'
 
 export const STATION_INFO = {
   name: 'KOCH FM',
